@@ -12,4 +12,22 @@ class IndividualSchedule:
     # Print function
     def __repr__(self):
 
-        return "Schedule for: {0}".format(self.name)
+        # Set the output
+        printString = ""
+
+        # Header
+        printString += "Schedule for: {0}\n".format(self.name)
+
+        # Add the Building and Floor components
+        printString += "Building: {0}\n".format(self.building)
+        printString += "Floor: {0}\n".format(self.floor)
+
+        return printString
+    
+    # Set the individual's floor
+    def setFloor(self, floor):
+        self.floor = floor
+    
+    # Set the individual's building
+    def setBuilding(self, building):
+        self.building = building
