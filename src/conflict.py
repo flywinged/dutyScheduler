@@ -1,7 +1,7 @@
 # Automatic scheduler for CMU PreCollege Program
 
 import sys
-from timeStamp import TimeStamp
+from src.timeStamp import TimeStamp
 
 # Determine if a string represents and integer
 def representsInt(string):
@@ -31,26 +31,71 @@ class Conflict:
         # Extract the start time of the conflict
         self.startTime = TimeStamp.createTimeFromString(splitText[0])
         self.endTime = TimeStamp.createTimeFromString(splitText[1])
+    
+    # Convert the Conflict to a string
+    def __repr__(self):
+
+        return str(self.startTime) + " - " + str(self.endTime)
 
 
 # Class to handle events which occur continuously
-class RecurringConflict(Conflict):
+class RecurringConflict:
 
-    # Constructor
+    # Constructor Text is in format "Day - HH:mm - HH:mm" where Day is the day of the week spelled out and capitalized and
+    #   HH:mm - HH:mm describes the start and end time for the conflict
     def __init__(self, text):
-        Conflict.__init__(self, text)
+        
+        # The text the RecurringConflict is based on
+        self.text = text
 
+        # Split the text into its components
+        splitText = text.split(" - ")
 
-# Class to handle single events
-class SingleConflict(Conflict):
+        # return an error if all the required parts of the conflict weren't found
+        if len(splitText) != 3:
+            print("ERROR: Unable to parse "  + self.text + " as a recurring conflict")
+            sys.exit()
 
-    # Constructor
-    def __init__(self, text):
-        Conflict.__init__(self, text)
+        # Get the day of the week for this conflict
+        try:
+            self.day = TimeStamp.dayNameToInt[splitText[0]]
+        except:
+            print("ERROR: \"" + splitText[0] + "\" from recurring conflict input \"" + self.text + "\" unable to be parsed as a day. Check capitalization and spelling.")
+            sys.exit()
+        
+        # Get the start time for this conflict
+        try:
+            self.startHour   = int(splitText[1][0:2])
+            self.startMinute = int(splitText[1][3:5])
+            self.endHour     = int(splitText[2][0:2])
+            self.endMinute   = int(splitText[2][3:5])
+        except:
+            print("ERROR: Unable to parse the times for " + self.text + ". Check formatting again")
+    
+    # Convert the weeklyConflict to a string
+    def __repr__(self):
 
-    # Determine the day of the week
-    def determineDayOfWeek(self, text):
-        pass
+        # Construct the start time string
+        startHourString = str(self.startHour)
+        if len(startHourString) == 1:
+            startHourString = "0" + startHourString
 
-# conflictOne = RecurringConflict("Monday(03:00-21:54)")
-conflictTwo = SingleConflict("04/14/2019 08:30 - 04/14/2019 11:00")
+        startMinuteString = str(self.startMinute)
+        if len(startMinuteString) == 1:
+            startMinuteString = "0" + startMinuteString
+        
+        startTimeString = startHourString + ":" + startMinuteString
+
+        # Construct the end time string
+        endHourString = str(self.endHour)
+        if len(endHourString) == 1:
+            endHourString = "0" + endHourString
+
+        endMinuteString = str(self.endMinute)
+        if len(endMinuteString) == 1:
+            endMinuteString = "0" + endMinuteString
+        
+        endTimeString = endHourString + ":" + endMinuteString
+
+        return TimeStamp.dayIntToName[self.day] + ": " + startTimeString + " - " + endTimeString
+

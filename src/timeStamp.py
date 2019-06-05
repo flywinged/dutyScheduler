@@ -43,7 +43,7 @@ class TimeStamp:
         self.minute = minute
     
     # Convert time to string
-    def __str__(self):
+    def __repr__(self):
 
         # Construct the strings for each part of the time
         monthString = str(self.month)

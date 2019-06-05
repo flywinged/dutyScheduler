@@ -1,5 +1,7 @@
 # Automatic scheduler for CMU PreCollege Program
 
+from src.conflict import Conflict, RecurringConflict
+
 # Return all the names written in the names file
 def readNameFile():
 
@@ -63,4 +65,61 @@ def readBuildingFile():
 # Return the weeklyConflicts file
 def readWeeklyConflictsFile():
 
-    pass
+    # Load the weeklyConflicts file
+    weeklyConflictFile = open("./input/weeklyConflicts.txt")
+
+    # Create the weekly conflicts output
+    weeklyConflicts = {}
+    for line in weeklyConflictFile.readlines():
+        if line[-1] == "\n": line = line[:-1]
+        splitLine = line.split(": ")
+
+        # Create the list of conflicts to attach to the RA
+        conflictList = []
+        for conflict in splitLine[1].split(", "):
+
+            # Ensure there is a conflict to write
+            if conflict == "": continue
+
+            # Add the conflict to the list of conflicts
+            conflictList.append(RecurringConflict(conflict))
+        
+        # Attach the weekly conflicts to the RA
+        weeklyConflicts[splitLine[0]] = conflictList
+
+    # Close the weeklyconflicts file
+    weeklyConflictFile.close()
+
+    # Return the generated weekly conflicts
+    return weeklyConflicts
+
+# Return the single conflicts file
+def readSingleConflictsFile():
+
+    # Load the singleConflicts file
+    singleConflictsFile = open("./input/singleConflicts.txt")
+
+    # Create the singleConflicts output
+    singleConflicts = {}
+    for line in singleConflictsFile.readlines():
+        if line[-1] == "\n": line = line[:-1]
+        splitLine = line.split(": ")
+
+        # Create the list of single conflicts to attach to the RA
+        conflictList = []
+        for conflict in splitLine[1].split(", "):
+
+            # Ensure there is a conflict to write
+            if conflict == "": continue
+            
+            # Add the conflict to the list of conflicts
+            conflictList.append(Conflict(conflict))
+        
+        # Attach the single conflicts to the RA
+        singleConflicts[splitLine[0]] = conflictList
+    
+    # Close the singleConflicts file
+    singleConflictsFile.close()
+
+    # Return the generated singleConflicts dictionary
+    return singleConflicts
