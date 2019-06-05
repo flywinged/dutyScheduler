@@ -2,6 +2,7 @@
 
 from src.individualSchedule import IndividualSchedule
 from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile
+from src.conflict import Conflict
 
 # Class for handling all the individual schedules
 class Schedule:

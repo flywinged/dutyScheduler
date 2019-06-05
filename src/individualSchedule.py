@@ -1,5 +1,8 @@
 # Automatic scheduler for CMU PreCollege Program
 
+from src.timeStamp import TimeStamp
+from src.conflict import Conflict
+
 # Class for handling a schedule for an individual
 class IndividualSchedule:
 
@@ -47,3 +50,44 @@ class IndividualSchedule:
     # Set the individual's single conflicts
     def setSingleConflicts(self, singleConflicts):
         self.singleConflicts = singleConflicts
+    
+    # Determine if a conflict conflicts with the individualSchedule's current schedule
+    # Inputs:
+    #   conflict - a conflict object
+    # Returns:
+    #   bool - true if there is a conflict, false if otherwise
+    def doesTimeConflict(self, conflict):
+
+        # First determine if any of the weeklyConflicts conflict with the conflict
+
+        # The days of the week the conflict occurs on
+        daysOfConflict = set()
+        duplicateStartTime = conflict.startTime.duplicate()
+        while duplicateStartTime < conflict.endTime:
+            daysOfConflict.add(duplicateStartTime.determineDayOfWeek())
+            duplicateStartTime.addTime(0, 0, 1, 0, 0)
+
+        # Check all the determined days of conflict
+        for weeklyConflict in self.weeklyConflicts:
+            
+            # Check to make sure the day of the weeklyConflict matches the dayOfConflict
+            dayOfWeeklyConflict = weeklyConflict.determineDayOfWeek()
+            if dayOfWeeklyConflict not in daysOfConflict: continue
+            
+            # Create a TimeStamp for when this weeklyConflict is this week
+            weeklyConflictStart = TimeStamp(conflict.year, conflict.month, conflict.day, weeklyConflict.startHour, weeklyConflict.startMinute)
+            weeklyConflictEnd = TimeStamp(conflict.year, conflict.month, conflict.day, weeklyConflict.endHour, weeklyConflict.endMinute)
+            weeklyConflict = Conflict(str(weeklyConflictStart + " - " + weeklyConflictEnd))
+
+            # Determine if this weekly Conflict conflicts with the conflict
+            if Conflict.doConflictsOverlap(weeklyConflict, conflict): return True
+
+        # Check if there are any single conflict conflicts
+        for singleConflict in self.singleConflicts:
+
+            if Conflict.doConflictsOverlap(singleConflict, conflict): return True
+
+        # TODO: Check if there are any days off which conflict
+
+        # Return false if there were no conflicts
+        return False

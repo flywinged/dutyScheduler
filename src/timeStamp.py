@@ -41,7 +41,7 @@ class TimeStamp:
         self.day = day
         self.hour = hour
         self.minute = minute
-    
+        
     # Convert time to string
     def __repr__(self):
 
@@ -71,6 +71,72 @@ class TimeStamp:
         # Combine the two strings as the output
         return date + " " + time
     
+    # Greater than less than comparator.
+    def __gt__(self, timeStamp):
+
+        # Is the year before or after? If equal, continue
+        if self.year > timeStamp.year: return True
+        if self.year < timeStamp.year: return False
+        
+        # Same process for month and all subsequent times
+        if self.month > timeStamp.month: return True
+        if self.month < timeStamp.month: return False
+        
+        if self.day > timeStamp.day: return True
+        if self.day < timeStamp.day: return False
+        
+        if self.hour > timeStamp.hour: return True
+        if self.hour < timeStamp.hour: return False
+        
+        if self.minute > timeStamp.minute: return True
+        return False
+    
+    # Less than comparator
+    def __lt__(self, timeStamp):
+
+        return not self.__gt__(timeStamp)
+    
+    # Return a copy of the timeStamp
+    def duplicate(self):
+
+        return TimeStamp(self.year, self.month, self.day, self.hour, self.minute)
+
+    # Add operator
+    def addTime(self, years, months, days, hours, minutes):
+
+        # Add starting from minutes, up to years
+        # Add minutes
+        self.minute += minutes
+        while self.minute > 60:
+            self.minute -= 60
+            self.hour += 1
+        
+        # Add hours
+        self.hour += hours
+        while self.hour > 24:
+            self.hour -= 24
+            self.day += 1
+        
+        # Add days
+        self.day += days
+        while self.day > TimeStamp.determineDaysInMonth(self.year, self.month):
+            self.day -= TimeStamp.determineDaysInMonth(self.year, self.month)
+            self.month += 1
+
+            # Revert back to January if too many days have been added
+            if self.month > 12:
+                self.month = 1
+                self.year += 1
+        
+        # Add months
+        self.month += months
+        while self.month > 12:
+            self.month -= 12
+            self.year += 1
+        
+        # Add years
+        self.year += years
+
     # Determine what day of the week the timeStamp is
     def determineDayOfWeek(self):
 

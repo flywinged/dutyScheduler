@@ -5,7 +5,7 @@ import sys, os
 from src.helpers import readNameFile
 
 # Global list of input files
-fileNames = ["weeklyConflicts", "singleConflicts", "floors", "buildings"]
+fileNames = ["weeklyConflicts", "singleConflicts", "floors", "buildings", "daysOff"]
 
 # Generate the input files
 def generateInputFiles(names):

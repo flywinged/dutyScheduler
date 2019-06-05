@@ -36,6 +36,20 @@ class Conflict:
     def __repr__(self):
 
         return str(self.startTime) + " - " + str(self.endTime)
+    
+    # Determine if 2 conflicts overlap
+    @staticmethod
+    def doConflictsOverlap(conflict1, conflict2):
+
+        # If either the start time or end time of conflict1 is inside conflict 2, the conflicts overlap.
+        if conflict1.startTime > conflict2.startTime and conflict1.startTime < conflict2.endTime: return True
+        if conflict1.endTime > conflict2.startTime and conflict1.endTime < conflict2.endTime: return True
+
+        # If the start time is before conflict2 start and after conflict2 end time, the conflicts overlap
+        if conflict1.startTime < conflict2.startTime and conflict1.endTime > conflict2.endTime: return True
+        
+        # If none of the above statements are true, return false
+        return False
 
 
 # Class to handle events which occur continuously
