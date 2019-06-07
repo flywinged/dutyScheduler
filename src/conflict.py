@@ -15,22 +15,11 @@ def representsInt(string):
 class Conflict:
 
     # Constructor. Text format is: "startTime - endTime" (start and endTime are in the same format as a timestamp)
-    def __init__(self, text):
-
-        # The text used to construct this conflict
-        self.text = text
-
-        # Split the text into the start and end times
-        splitText = self.text.split(" - ")
-
-        # Return an error if the conflict doesn't have a start and end time
-        if len(splitText) != 2:
-            print("ERROR: Unable to parse " + self.text + " as conflict")
-            sys.exit()
+    def __init__(self, startTimeStampText, endTimeStampText):
 
         # Extract the start time of the conflict
-        self.startTime = TimeStamp.createTimeFromString(splitText[0])
-        self.endTime = TimeStamp.createTimeFromString(splitText[1])
+        self.startTime = TimeStamp.createTimeFromString(startTimeStampText)
+        self.endTime = TimeStamp.createTimeFromString(endTimeStampText)
     
     # Convert the Conflict to a string
     def __repr__(self):
@@ -57,34 +46,23 @@ class RecurringConflict:
 
     # Constructor Text is in format "Day - HH:mm - HH:mm" where Day is the day of the week spelled out and capitalized and
     #   HH:mm - HH:mm describes the start and end time for the conflict
-    def __init__(self, text):
-        
-        # The text the RecurringConflict is based on
-        self.text = text
-
-        # Split the text into its components
-        splitText = text.split(" - ")
-
-        # return an error if all the required parts of the conflict weren't found
-        if len(splitText) != 3:
-            print("ERROR: Unable to parse "  + self.text + " as a recurring conflict")
-            sys.exit()
+    def __init__(self, dayText, startTimeText, endTimeText):
 
         # Get the day of the week for this conflict
         try:
-            self.day = TimeStamp.dayNameToInt[splitText[0]]
+            self.day = TimeStamp.dayNameToInt[dayText]
         except:
-            print("ERROR: \"" + splitText[0] + "\" from recurring conflict input \"" + self.text + "\" unable to be parsed as a day. Check capitalization and spelling.")
+            print("ERROR: \"" + dayText + "\" from recurring conflict input unable to be parsed as a day. Check capitalization and spelling.")
             sys.exit()
         
         # Get the start time for this conflict
         try:
-            self.startHour   = int(splitText[1][0:2])
-            self.startMinute = int(splitText[1][3:5])
-            self.endHour     = int(splitText[2][0:2])
-            self.endMinute   = int(splitText[2][3:5])
+            self.startHour   = int(startTimeText[0:2])
+            self.startMinute = int(startTimeText[3:5])
+            self.endHour     = int(endTimeText[0:2])
+            self.endMinute   = int(endTimeText[3:5])
         except:
-            print("ERROR: Unable to parse the times for " + self.text + ". Check formatting again")
+            print("ERROR: Unable to parse the times for " + dayText + "," + startTimeText + "," + endTimeText + ". Check formatting again")
     
     # Convert the weeklyConflict to a string
     def __repr__(self):

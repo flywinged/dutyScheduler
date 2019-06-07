@@ -13,7 +13,7 @@ class Schedule:
         # List of names of those being scheduled
         self.names = readNameFile()
         
-        # Set the attributes
+        # Set the default attributes
         self.schedules = {}
         self.floors = {}
         self.buildings = {}

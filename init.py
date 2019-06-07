@@ -12,13 +12,29 @@ def generateInputFiles(names):
     
     # Create all the input files
     files = []
-    for fileName in fileNames: files.append(open("./input/" + fileName + ".txt", "w"))
+    for fileName in fileNames: files.append(open("./input/" + fileName + ".csv", "w"))
+
+    # Create the format guide for each file
+    # weeklyConflicts guide
+    files[0].write("[RA Name], [Day 1], [Start Time 1],[End Time 1], [Day 2], [Start Time 2], [Start Time 2], ...[Day N], [Start Time N], [End Time N]\n")
+
+    # singleConflicts Guide
+    files[1].write("[RA Name], [Start Date 1], [Start Time 1], [End Date 1], [End Time 1], ...[Start Date N], [Start Time N], [End Date N], [End Time N]\n")
+
+    # floors guide
+    files[2].write("[RA Name], [Floor]\n")
+
+    # buildings guide
+    files[3].write("[RA Name], [Building]\n")
+
+    # daysOff guide
+    files[4].write("[RA Name], [Date 1], [Date 2], [Date N]\n")
 
     # Make a template for each name
     for name in names:
 
         # Generate the line that will be written
-        line = name + ": "
+        line = name + ","
         
         # Write the line to every file
         for f in files: f.write(line + '\n')
@@ -28,7 +44,7 @@ def generateInputFiles(names):
 
 # Clear input files
 def clearInputFiles():
-    for fileName in fileNames: os.unlink("./input/" + fileName + ".txt")
+    for fileName in fileNames: os.unlink("./input/" + fileName + ".csv")
 
 # Initialize all the input files for the user
 if __name__ == "__main__":
