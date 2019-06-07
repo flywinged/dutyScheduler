@@ -195,7 +195,10 @@ def readDaysOffFile():
         # Find all the days off
         RADaysOff = []
         for i in range(1, len(splitLine)):
-            RADaysOff.append(TimeStamp.createTimeFromString(splitLine[i] + " 00:00"))
+            dayOffStart = TimeStamp.createTimeFromString(splitLine[i] + " 00:00")
+            dayOffEnd = dayOffStart.duplicate()
+            dayOffEnd.addTime(0, 0, 1, 0, 0)
+            RADaysOff.append(Conflict(str(dayOffStart), str(dayOffEnd)))
 
         # Attach the RAdaysOff to daysOff
         daysOff[splitLine[0]] = RADaysOff

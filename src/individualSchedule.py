@@ -3,6 +3,11 @@
 from src.timeStamp import TimeStamp
 from src.conflict import Conflict
 
+# Use this change what times a floor maybe be unattended
+# TODO: Make this loadable by a file
+floorUnattendedStartTime = TimeStamp(0, 0, 0, 19, 30)
+floorUnattendedLength = 10 # In hours
+
 # Class for handling a schedule for an individual
 class IndividualSchedule:
 
@@ -97,6 +102,31 @@ class IndividualSchedule:
             if Conflict.doConflictsOverlap(singleConflict, conflict): return True
 
         # TODO: Check if there are any days off which conflict
+        for daysOff in self.daysOff:
+
+            if Conflict.doConflictsOverlap(daysOff, conflict): return True
+            
+        # TODO: Make sure no partners have conflicts during this time as well
+        if not isPartner:
+            
+            # Set the start time for when partners have to be on the same floor
+            partnerConflictTimeStart = floorUnattendedStartTime.duplicate()
+            partnerConflictTimeStart.year = conflict.year
+            partnerConflictTimeStart.month = conflict.month
+            partnerConflictTimeStart.day = conflict.day
+
+            # Set the end time from when partners have to be on the same floor
+            partnerConflictTimeEnd = partnerConflictTimeStart.duplicate()
+            partnerConflictTimeEnd.addTime(0, 0, 0, floorUnattendedLength, 0)
+
+            # Create the conflict time for partners
+            partnerTimeConflict = Conflict(str(partnerConflictTimeStart), str(partnerConflictTimeEnd))
+
+            # TODO: If the conflict lasts during this time, check if any of the partners have conflict
+            # if Conflict.doConflictsOverlap(partnerTimeConflict, conflict):
+            #     for partner in self.partners:
+            #         if 
+
 
         # Return false if there were no conflicts
         return False
