@@ -1,7 +1,7 @@
 # Automatic scheduler for CMU PreCollege Program
 
 from src.individualSchedule import IndividualSchedule
-from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile
+from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile
 from src.conflict import Conflict
 
 # Class for handling all the individual schedules
@@ -20,13 +20,22 @@ class Schedule:
         self.weeklyConflicts = {}
         self.singleConflicts = {}
 
+        self.weeklyDuties = {}
+        self.singleDuties = {}
+
+        # Load all the data from files
         self.loadSchedules() # Load everyone's schedule
         self.loadFloors() # Load everyone's floor
         self.loadBuildings() # Load everyone's building
         self.loadWeeklyConflicts() # Load everyone's weeklyConflicts
         self.loadSingleConflicts() # Load everyone's singleConflicts
 
+        self.loadWeeklyDuties() # Load the weekly Duties
+        self.loadSingleDuties() # Load the single duties
+
         print(self.schedules)
+        print(self.weeklyDuties)
+        print(self.singleDuties)
     
     # Load the names into the schedule
     def loadSchedules(self):
@@ -69,3 +78,15 @@ class Schedule:
 
         # Assign all the single conflicts to each schedule
         for name in self.schedules: self.schedules[name].setSingleConflicts(self.singleConflicts[name])
+    
+    # Add the weeklyDuties to the main schedule
+    def loadWeeklyDuties(self):
+
+        # Attach to self
+        self.weeklyDuties = readWeeklyDutiesFile()
+    
+    # Add the singleDuties to the main schedule
+    def loadSingleDuties(self):
+
+        # Attach to self
+        self.singleDuties = readSingleDutiesFile()

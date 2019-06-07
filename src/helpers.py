@@ -128,3 +128,53 @@ def readSingleConflictsFile():
 
     # Return the generated singleConflicts dictionary
     return singleConflicts
+
+# Return the recurring duties file
+def readWeeklyDutiesFile():
+
+    # Load the recurringDuties file
+    weeklyDutiesFile = open("./input/weeklyDuties.csv")
+
+    # Create the recurring duties output
+    weeklyDuties = {}
+    for line in weeklyDutiesFile.readlines()[1:]:
+        if line[-1] == "\n": line = line[:-1]
+        splitLine = line.split(",")
+
+        # Print error message if the splitLine is not in the correct format
+        if len(splitLine) != 4:
+            print("ERROR: line \"" + line + "\" cannot be parsed as a recurring duty.")
+        
+        # Attach the weekly conflicts to the RA
+        weeklyDuties[splitLine[0]] = RecurringConflict(splitLine[1], splitLine[2], splitLine[3])
+
+    # Close the weeklyconflicts file
+    weeklyDutiesFile.close()
+
+    # Return the generated weekly conflicts
+    return weeklyDuties
+
+# Return the single duties file
+def readSingleDutiesFile():
+
+    # Load the recurringDuties file
+    singleDutiesFile = open("./input/singleDuties.csv")
+
+    # Create the recurring duties output
+    singleDuties = {}
+    for line in singleDutiesFile.readlines()[1:]:
+        if line[-1] == "\n": line = line[:-1]
+        splitLine = line.split(",")
+
+        # Print error message if the splitLine is not in the correct format
+        if len(splitLine) != 5:
+            print("ERROR: line \"" + line + "\" cannot be parsed as a recurring duty.")
+        
+        # Attach the weekly conflicts to the RA
+        singleDuties[splitLine[0]] = Conflict(splitLine[1] + " " + splitLine[2], splitLine[3] + " " + splitLine[4])
+
+    # Close the weeklyconflicts file
+    singleDutiesFile.close()
+
+    # Return the generated weekly conflicts
+    return singleDuties
