@@ -1,6 +1,7 @@
 # Automatic scheduler for CMU PreCollege Program
 
 from src.conflict import Conflict, RecurringConflict
+from src.timeStamp import TimeStamp
 
 # Return all the names written in the names file
 def readNameFile():
@@ -178,3 +179,29 @@ def readSingleDutiesFile():
 
     # Return the generated weekly conflicts
     return singleDuties
+
+# Return the days off file
+def readDaysOffFile():
+
+    # Load the daysOff file
+    daysOffFile = open("./input/daysOff.csv")
+
+    # Create the daysOff output
+    daysOff = {}
+    for line in daysOffFile.readlines()[1:]:
+        if line[-1] == "\n": line = line[:-1]
+        splitLine = line.split(",")
+        
+        # Find all the days off
+        RADaysOff = []
+        for i in range(1, len(splitLine)):
+            RADaysOff.append(TimeStamp.createTimeFromString(splitLine[i] + " 00:00"))
+
+        # Attach the RAdaysOff to daysOff
+        daysOff[splitLine[0]] = RADaysOff
+
+    # Close the daysOff file
+    daysOffFile.close()
+
+    # Return the generated days off
+    return daysOff

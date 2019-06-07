@@ -15,8 +15,10 @@ class IndividualSchedule:
         # Attributes for the individual schedule
         self.floor = None
         self.building = None
-        self.weeklyConflicts = None
-        self.singleConflicts = None
+        self.weeklyConflicts = {}
+        self.singleConflicts = {}
+        self.daysOff = []
+        self.partners = []
     
     # Print function
     def __repr__(self):
@@ -32,6 +34,8 @@ class IndividualSchedule:
         printString += "Floor: {0}\n".format(self.floor)
         printString += "Weekly Conflicts: " + str(self.weeklyConflicts) + "\n"
         printString += "Single Conflicts: " + str(self.singleConflicts) + "\n"
+        printString += "Days Off: " + str(self.daysOff) + "\n"
+        printString += "Partners: " + str(self.partners) + "\n"
 
         return printString
     
@@ -51,12 +55,17 @@ class IndividualSchedule:
     def setSingleConflicts(self, singleConflicts):
         self.singleConflicts = singleConflicts
     
+    # Set the individuals's days off
+    def setDaysOff(self, daysOff):
+        self.daysOff = daysOff
+
     # Determine if a conflict conflicts with the individualSchedule's current schedule
     # Inputs:
     #   conflict - a conflict object
+    #   isPartner - if True, keeps the function from recursively calling itself
     # Returns:
     #   bool - true if there is a conflict, false if otherwise
-    def doesTimeConflict(self, conflict):
+    def doesTimeConflict(self, conflict, isPartner = False):
 
         # First determine if any of the weeklyConflicts conflict with the conflict
 
@@ -77,7 +86,7 @@ class IndividualSchedule:
             # Create a TimeStamp for when this weeklyConflict is this week
             weeklyConflictStart = TimeStamp(conflict.year, conflict.month, conflict.day, weeklyConflict.startHour, weeklyConflict.startMinute)
             weeklyConflictEnd = TimeStamp(conflict.year, conflict.month, conflict.day, weeklyConflict.endHour, weeklyConflict.endMinute)
-            weeklyConflict = Conflict(str(weeklyConflictStart + " - " + weeklyConflictEnd))
+            weeklyConflict = Conflict(str(weeklyConflictStart), str(weeklyConflictEnd))
 
             # Determine if this weekly Conflict conflicts with the conflict
             if Conflict.doConflictsOverlap(weeklyConflict, conflict): return True

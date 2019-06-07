@@ -1,7 +1,7 @@
 # Automatic scheduler for CMU PreCollege Program
 
 from src.individualSchedule import IndividualSchedule
-from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile
+from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile, readDaysOffFile
 from src.conflict import Conflict
 
 # Class for handling all the individual schedules
@@ -19,6 +19,7 @@ class Schedule:
         self.buildings = {}
         self.weeklyConflicts = {}
         self.singleConflicts = {}
+        self.daysOff = {}
 
         self.weeklyDuties = {}
         self.singleDuties = {}
@@ -29,9 +30,13 @@ class Schedule:
         self.loadBuildings() # Load everyone's building
         self.loadWeeklyConflicts() # Load everyone's weeklyConflicts
         self.loadSingleConflicts() # Load everyone's singleConflicts
+        self.loadDaysOff() # Load everyone's days off
 
         self.loadWeeklyDuties() # Load the weekly Duties
         self.loadSingleDuties() # Load the single duties
+
+        # Process all the data necessary after it has been loaded in
+        self.linkPartners()
 
         print(self.schedules)
         print(self.weeklyDuties)
@@ -79,6 +84,15 @@ class Schedule:
         # Assign all the single conflicts to each schedule
         for name in self.schedules: self.schedules[name].setSingleConflicts(self.singleConflicts[name])
     
+    # Add the daysOff to each schedule
+    def loadDaysOff(self):
+
+        # Create the daysOff dictionary
+        self.daysOff = readDaysOffFile()
+
+        # Assign all the daysOff to each schedule
+        for name in self.schedules: self.schedules[name].setDaysOff(self.daysOff[name])
+
     # Add the weeklyDuties to the main schedule
     def loadWeeklyDuties(self):
 
@@ -90,3 +104,33 @@ class Schedule:
 
         # Attach to self
         self.singleDuties = readSingleDutiesFile()
+    
+    # Determines which RAs are available during a conflict
+    def determineAvailableRAs(self, conflict):
+
+        # Define the output
+        availableRAs = []
+
+        # Loops through all RAs and determine if the RA is available
+        for RA in self.schedules:
+            if not self.schedules[RA].doesTimeConflict(conflict):
+                availableRAs.append(RA)
+
+        # Return the RAs which have been determined to be available
+        return availableRAs
+    
+    # Link each RA to their partner
+    def linkPartners(self):
+
+        # For each RA, find the RA or RAs which share a floor
+        for RA in self.schedules:
+            RASchedule = self.schedules[RA]
+            
+            # Loop through the RAs again
+            for RAPartner in self.schedules:
+                if RAPartner == RA: continue
+                RAPartnerSchedule = self.schedules[RAPartner]
+                
+                # Add the partner if both the building and floor match
+                if RASchedule.building == RAPartnerSchedule.building and RASchedule.floor == RAPartnerSchedule.floor:
+                    RASchedule.partners.append(RAPartner)
