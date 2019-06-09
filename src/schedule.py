@@ -3,6 +3,7 @@
 from src.individualSchedule import IndividualSchedule
 from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile, readDaysOffFile
 from src.conflict import Conflict
+from src.timeStamp import TimeStamp
 
 # Class for handling all the individual schedules
 class Schedule:
@@ -20,6 +21,7 @@ class Schedule:
         self.weeklyConflicts = {}
         self.singleConflicts = {}
         self.daysOff = {}
+        self.schedule = {}
 
         self.weeklyDuties = {}
         self.singleDuties = {}
@@ -41,6 +43,7 @@ class Schedule:
         print(self.schedules)
         print(self.weeklyDuties)
         print(self.singleDuties)
+        print()
     
     # Load the names into the schedule
     def loadSchedules(self):
@@ -133,4 +136,46 @@ class Schedule:
                 
                 # Add the partner if both the building and floor match
                 if RASchedule.building == RAPartnerSchedule.building and RASchedule.floor == RAPartnerSchedule.floor:
-                    RASchedule.partners.append(RAPartner)
+                    RASchedule.partners[RAPartner] = RAPartnerSchedule
+    
+    # Create a schedule
+    def createSchedule(self, startDay, endDay):
+
+        # Will generate a dictionary of every duty and who is available to do those duties
+        self.schedule = {}
+
+        # Loop through each day in the schedule
+        duplicateStartDay = startDay.duplicate()
+        duplicateStartDay.hour = 0
+        duplicateStartDay.minute = 0
+        endDay.addTime(0, 0, 1, 0, 0)
+        while not TimeStamp.isSameDay(duplicateStartDay, endDay):
+
+            # Will generate a dictionary of every duty and who is available to do those duties
+            availableRAs = {}
+
+            # Loop through each singleDuty
+            for singleDuty in self.singleDuties:
+
+                # If the duty starts on this day, available RAs
+                if TimeStamp.isSameDay(self.singleDuties[singleDuty].startTime, duplicateStartDay):
+                    availableRAs[singleDuty] = self.determineAvailableRAs(self.singleDuties[singleDuty])
+
+            # Loop through all the weeklyDuties
+            for weeklyDuty in self.weeklyDuties:
+
+                # Turn the weeklyDuty into a regular conflict if the weeklyDuty is the correct day of the week
+                if duplicateStartDay.determineDayOfWeek() == self.weeklyDuties[weeklyDuty].day:
+
+                    weeklyDutyStart = TimeStamp(duplicateStartDay.year, duplicateStartDay.month, duplicateStartDay.day, self.weeklyDuties[weeklyDuty].startHour, self.weeklyDuties[weeklyDuty].startMinute)
+                    weeklyDutyEnd = TimeStamp(duplicateStartDay.year, duplicateStartDay.month, duplicateStartDay.day, self.weeklyDuties[weeklyDuty].endHour, self.weeklyDuties[weeklyDuty].endMinute)
+                    generatedWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd))
+                    
+                    # Determine which RAs can perform this duty
+                    availableRAs[weeklyDuty] = self.determineAvailableRAs(generatedWeeklyDuty)
+
+            self.schedule[duplicateStartDay.reprDate()] = availableRAs
+
+            duplicateStartDay.addTime(0, 0, 1, 0, 0)
+        
+        print(self.schedule)

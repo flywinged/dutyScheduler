@@ -45,28 +45,9 @@ class TimeStamp:
     # Convert time to string
     def __repr__(self):
 
-        # Construct the strings for each part of the time
-        monthString = str(self.month)
-        if len(monthString) == 1:
-            monthString = "0" + monthString
-
-        dayString = str(self.day)
-        if len(dayString) == 1:
-            dayString = "0" + dayString
-        
-        yearString = str(self.year)
-        
-        hourString = str(self.hour)
-        if len(hourString) == 1:
-            hourString = "0" + hourString
-
-        minuteString = str(self.minute)
-        if len(minuteString) == 1:
-            minuteString = "0" + minuteString
-        
         # Construct the date and time part
-        date = monthString + "/" + dayString + "/" + yearString
-        time = hourString + ":" + minuteString
+        date = self.reprDate()
+        time = self.reprTime()
 
         # Combine the two strings as the output
         return date + " " + time
@@ -96,6 +77,39 @@ class TimeStamp:
 
         return not self.__gt__(timeStamp)
     
+    # Equal to comparator
+    def __eq__(self, timeStamp):
+        return self.year == timeStamp.year and self.month == timeStamp.year and self.day == timeStamp.year and self.hour == timeStamp.hour and self.minute == timeStamp.minute
+    
+    # Return the date part of the timestamp
+    def reprDate(self):
+
+        # Construct the strings for each part of the time
+        monthString = str(self.month)
+        if len(monthString) == 1:
+            monthString = "0" + monthString
+
+        dayString = str(self.day)
+        if len(dayString) == 1:
+            dayString = "0" + dayString
+        
+        yearString = str(self.year)
+
+        return  monthString + "/" + dayString + "/" + yearString
+    
+    # Return the time part of the timeStamp
+    def reprTime(self):
+
+        hourString = str(self.hour)
+        if len(hourString) == 1:
+            hourString = "0" + hourString
+
+        minuteString = str(self.minute)
+        if len(minuteString) == 1:
+            minuteString = "0" + minuteString
+        
+        return hourString + ":" + minuteString
+
     # Return a copy of the timeStamp
     def duplicate(self):
 
@@ -166,6 +180,26 @@ class TimeStamp:
         # Now determine what day of the week it is
         dayOfTheWeek = (totalDays + TimeStamp.referenceDay) % 7
         return dayOfTheWeek
+
+    # Returns true the the timestamps occur on the same day
+    @staticmethod
+    def isSameDay(timeStamp1, timeStamp2):
+
+        if timeStamp1.year == timeStamp2.year and timeStamp1.month == timeStamp2.month and timeStamp1.day == timeStamp2.day: return True
+        else: return False
+
+    # Create a timestamp from a given date. Setting the time of day to midnight
+    @staticmethod
+    def createDayFromString(string):
+        # Try creating the time
+        try:
+            month  = int(string[0 : 2])
+            day    = int(string[3 : 5])
+            year   = int(string[6 : 10])
+            return TimeStamp(year, month, day, 0, 0)
+        except:
+            print("ERROR: Unable to parse " + string + " as a day")
+            sys.exit()
 
     # In order to input a time, it must be in this format: MM/DD/YYYY HH:mm (Where MM, DD, HH, and mm are all two digit numbers)
     @staticmethod

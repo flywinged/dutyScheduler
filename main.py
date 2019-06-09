@@ -3,6 +3,7 @@
 import sys
 
 from src.schedule import Schedule
+from src.timeStamp import TimeStamp
 
 if __name__ == "__main__":
     
@@ -10,8 +11,8 @@ if __name__ == "__main__":
         print("ERROR: Please input a start date and an end date to schedule")
         sys.exit()
     
-    startDate = sys.argv[1]
-    endDate = sys.argv[2]
+    startDate = TimeStamp.createDayFromString(sys.argv[1])
+    endDate = TimeStamp.createDayFromString(sys.argv[2])
 
     # Define the base schedule
     try:
@@ -20,3 +21,4 @@ if __name__ == "__main__":
         print("ERROR: Unable to load schedule for unknown reason. Likely an input file is formatted incorrectly")
         sys.exit()
     
+    schedule.createSchedule(startDate, endDate)
