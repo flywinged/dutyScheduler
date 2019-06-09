@@ -39,11 +39,6 @@ class Schedule:
 
         # Process all the data necessary after it has been loaded in
         self.linkPartners()
-
-        print(self.schedules)
-        print(self.weeklyDuties)
-        print(self.singleDuties)
-        print()
     
     # Load the names into the schedule
     def loadSchedules(self):
@@ -112,12 +107,12 @@ class Schedule:
     def determineAvailableRAs(self, conflict):
 
         # Define the output
-        availableRAs = []
+        availableRAs = set()
 
         # Loops through all RAs and determine if the RA is available
         for RA in self.schedules:
             if not self.schedules[RA].doesTimeConflict(conflict):
-                availableRAs.append(RA)
+                availableRAs.add(RA)
 
         # Return the RAs which have been determined to be available
         return availableRAs
@@ -178,4 +173,7 @@ class Schedule:
 
             duplicateStartDay.addTime(0, 0, 1, 0, 0)
         
-        print(self.schedule)
+        for date in self.schedule:
+            print()
+            print(date, self.schedule[date])
+
