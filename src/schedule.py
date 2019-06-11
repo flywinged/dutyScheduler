@@ -5,7 +5,9 @@ from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeekl
 from src.helpers import weightedRandom
 from src.conflict import Conflict
 from src.timeStamp import TimeStamp
+
 from copy import deepcopy
+import sys
 
 # Class for handling all the individual schedules
 class Schedule:
@@ -314,8 +316,10 @@ class Schedule:
         if dutyName in self.dutyTypes:
             if self.dutyTypes[dutyName] not in self.schedules[chosenRA].dutiesPerformed:
                 self.schedules[chosenRA].dutiesPerformed[self.dutyTypes[dutyName]] = 1
+                self.dutiesPerformed[chosenRA][self.dutyTypes[dutyName]] = 1
             else:
                 self.schedules[chosenRA].dutiesPerformed[self.dutyTypes[dutyName]] += 1
+                self.dutiesPerformed[chosenRA][self.dutyTypes[dutyName]] += 1
 
         return chosenRA
 
@@ -332,21 +336,30 @@ class Schedule:
         savedState = self.duplicate()
         savedAvailableRAs = deepcopy(availableRAs)
 
-        # Loop through each date and choose an RA to perform each duty
+        # Keep trying until the schedule is successfulyy made
         retry = True
+        schedulingAttempts = 0
         while retry:
             retry = False
+            schedulingAttempts += 1
+            if schedulingAttempts > 1000:
+                print("ERROR: Too many scheduling attempts. (More than 1000 tried. Likely the schedule is impossible with the given conflicts and duties)")
+                sys.exit()
 
+            # Copy over the saved state
             self = savedState.duplicate()
             availableRAs = deepcopy(savedAvailableRAs)
 
+            # Loop through each date and choose an RA to perform each duty
             for date in availableRAs:
                 self.schedule[date] = {}
                 breakOut = False
 
+                # Chose an RA for each duty
                 for duty in availableRAs[date]:
                     chosenRA = self.determineAndAssignRA(duty, availableRAs[date][duty]["conflict"], availableRAs[date][duty]["set"])
 
+                    # Make sure there was an RA chosen. If there wasn't initiate a retry
                     if chosenRA == False:
                         breakOut = True
                         break
@@ -359,4 +372,4 @@ class Schedule:
                     break
                 print(self.schedule[date])
 
-
+        self.saveDutiesPerformed()
