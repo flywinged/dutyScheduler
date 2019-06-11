@@ -372,4 +372,16 @@ class Schedule:
                     break
                 print(self.schedule[date])
 
+        # For each day in the schedule, create a csv with all the information
+        for date in self.schedule:
+
+            # Open a file to write the data to
+            outputFile = open("./output/" + date.replace("/", ".") + ".csv", "w")
+
+            for duty in self.schedule[date]:
+                outputFile.write(duty + "," + self.schedule[date][duty] + "\n")
+
+            # Close the output file
+            outputFile.close()
+
         self.saveDutiesPerformed()
