@@ -293,7 +293,7 @@ class Schedule:
         maxAmount = 0
         for RA in RASet:
 
-            if dutyName not in self.dutyTypes: amount = 1
+            if dutyName not in self.dutyTypes or self.dutyTypes[dutyName] not in self.schedules[RA].dutiesPerformed: amount = 1
             else: amount =  self.schedules[RA].dutiesPerformed[self.dutyTypes[dutyName]]
 
             if minAmount > amount: minAmount = amount
