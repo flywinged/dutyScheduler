@@ -1,5 +1,8 @@
 # Automatic scheduler for CMU PreCollege Program
 
+import sys
+from os.path import isfile as isFile
+
 from src.conflict import Conflict, RecurringConflict
 from src.timeStamp import TimeStamp
 
@@ -138,22 +141,26 @@ def readWeeklyDutiesFile():
 
     # Create the recurring duties output
     weeklyDuties = {}
+    dutyTypes = {}
     for line in weeklyDutiesFile.readlines()[1:]:
         if line[-1] == "\n": line = line[:-1]
         splitLine = line.split(",")
 
         # Print error message if the splitLine is not in the correct format
-        if len(splitLine) != 4:
+        if len(splitLine) != 5:
             print("ERROR: line \"" + line + "\" cannot be parsed as a recurring duty.")
+            sys.exit()
         
         # Attach the weekly conflicts to the RA
-        weeklyDuties[splitLine[0]] = RecurringConflict(splitLine[1], splitLine[2], splitLine[3])
+        weeklyDuties[splitLine[0]] = RecurringConflict(splitLine[2], splitLine[3], splitLine[4])
+        if splitLine[1] != "":
+            dutyTypes[splitLine[0]] = splitLine[1]
 
     # Close the weeklyconflicts file
     weeklyDutiesFile.close()
 
     # Return the generated weekly conflicts
-    return weeklyDuties
+    return weeklyDuties, dutyTypes
 
 # Return the single duties file
 def readSingleDutiesFile():
@@ -163,22 +170,26 @@ def readSingleDutiesFile():
 
     # Create the recurring duties output
     singleDuties = {}
+    dutyTypes = {}
     for line in singleDutiesFile.readlines()[1:]:
         if line[-1] == "\n": line = line[:-1]
         splitLine = line.split(",")
 
         # Print error message if the splitLine is not in the correct format
-        if len(splitLine) != 5:
+        if len(splitLine) != 6:
             print("ERROR: line \"" + line + "\" cannot be parsed as a recurring duty.")
+            sys.exit()
         
-        # Attach the weekly conflicts to the RA
-        singleDuties[splitLine[0]] = Conflict(splitLine[1] + " " + splitLine[2], splitLine[3] + " " + splitLine[4])
+        # Attach the single Duty to the dictionary of single duties
+        singleDuties[splitLine[0]] = Conflict(splitLine[2] + " " + splitLine[3], splitLine[4] + " " + splitLine[5])
+        if splitLine[1] != "":
+            dutyTypes[splitLine[0]] = splitLine[1]
 
     # Close the weeklyconflicts file
     singleDutiesFile.close()
 
     # Return the generated weekly conflicts
-    return singleDuties
+    return singleDuties, dutyTypes
 
 # Return the days off file
 def readDaysOffFile():
@@ -195,6 +206,10 @@ def readDaysOffFile():
         # Find all the days off
         RADaysOff = []
         for i in range(1, len(splitLine)):
+            
+            # Make sure there is actualyl a day off here
+            if splitLine[i] == "": continue
+
             dayOffStart = TimeStamp.createTimeFromString(splitLine[i] + " 00:00")
             dayOffEnd = dayOffStart.duplicate()
             dayOffEnd.addTime(0, 0, 1, 0, 0)
@@ -208,3 +223,41 @@ def readDaysOffFile():
 
     # Return the generated days off
     return daysOff
+
+# Return the dutiesPerformedFile (if it exists)
+def readDutiesPerformedFile():
+    
+    # Create the output
+    dutiesPerformed = {}
+
+    # Check if the file exists
+    if isFile("./data/dutiesPerformed.csv"):
+        
+        # Load the file
+        dutiesPerformedFile = open("./data/dutiesPerformed.csv")
+
+        # Construct the list of duties
+        dutyList = dutiesPerformedFile.readline()[:-1].split(",")[1:]
+        
+        # For each RA, define which duties they have done
+        for line in dutiesPerformedFile.readlines():
+            if line[-1] == "\n": line = line[:-1]
+            splitLine = line.split(",")
+
+            # Define the RA duties performed
+            RADutiesPerformed = {}
+
+            # Attach the count for each duty to the RADutiesPerformed dictionary
+            i = 0
+            for dutyCount in splitLine[1:]:
+                RADutiesPerformed[dutyList[i]] = int(dutyCount)
+                i+=1
+            
+            # Attach the RA duties performed to the dutiesPerformed dictionary
+            dutiesPerformed[splitLine[0]] = RADutiesPerformed
+
+        # Close the file
+        dutiesPerformedFile.close()
+    
+    # Return the constructed dutiesPerformed file
+    return dutiesPerformed

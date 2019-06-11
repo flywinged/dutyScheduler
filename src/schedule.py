@@ -1,15 +1,16 @@
 # Automatic scheduler for CMU PreCollege Program
 
 from src.individualSchedule import IndividualSchedule
-from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile, readDaysOffFile
+from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile, readDaysOffFile, readDutiesPerformedFile
 from src.conflict import Conflict
 from src.timeStamp import TimeStamp
+from copy import deepcopy
 
 # Class for handling all the individual schedules
 class Schedule:
 
     # Constructor
-    def __init__(self):
+    def __init__(self, loadFiles = True):
         
         # List of names of those being scheduled
         self.names = readNameFile()
@@ -22,23 +23,51 @@ class Schedule:
         self.singleConflicts = {}
         self.daysOff = {}
         self.schedule = {}
+        self.dutiesPerformed = {}
 
         self.weeklyDuties = {}
         self.singleDuties = {}
+        self.dutyTypes = {}
 
-        # Load all the data from files
-        self.loadSchedules() # Load everyone's schedule
-        self.loadFloors() # Load everyone's floor
-        self.loadBuildings() # Load everyone's building
-        self.loadWeeklyConflicts() # Load everyone's weeklyConflicts
-        self.loadSingleConflicts() # Load everyone's singleConflicts
-        self.loadDaysOff() # Load everyone's days off
+        if loadFiles:
 
-        self.loadWeeklyDuties() # Load the weekly Duties
-        self.loadSingleDuties() # Load the single duties
+            # Load all the data from files
+            self.loadSchedules() # Load everyone's schedule
+            self.loadFloors() # Load everyone's floor
+            self.loadBuildings() # Load everyone's building
+            self.loadWeeklyConflicts() # Load everyone's weeklyConflicts
+            self.loadSingleConflicts() # Load everyone's singleConflicts
+            self.loadDaysOff() # Load everyone's days off
+            self.loadDutiesPerformed() # Load all the previously completed duties
 
-        # Process all the data necessary after it has been loaded in
-        self.linkPartners()
+            self.loadWeeklyDuties() # Load the weekly Duties
+            self.loadSingleDuties() # Load the single duties
+
+            # Process all the data necessary after it has been loaded in
+            self.linkPartners()
+    
+    # Duplication function
+    def duplicate(self):
+
+        # Create the new schedule
+        newSchedule = Schedule(loadFiles = False)
+
+        # Copy over all the data
+        newSchedule.schedules = deepcopy(self.schedules)
+        newSchedule.floors = deepcopy(self.floors)
+        newSchedule.buildings = deepcopy(self.buildings)
+        newSchedule.weeklyConflicts = deepcopy(self.weeklyConflicts)
+        newSchedule.singleConflicts = deepcopy(self.singleConflicts)
+        newSchedule.daysOff = deepcopy(self.daysOff)
+        newSchedule.schedule = deepcopy(self.schedule)
+        newSchedule.dutiesPerformed = deepcopy(self.dutiesPerformed)
+
+        newSchedule.weeklyDuties = deepcopy(self.weeklyDuties)
+        newSchedule.singleDuties = deepcopy(self.singleDuties)
+        newSchedule.dutyTypes = deepcopy(self.dutyTypes)
+
+        # Return the new schedule
+        return newSchedule
     
     # Load the names into the schedule
     def loadSchedules(self):
@@ -95,14 +124,74 @@ class Schedule:
     def loadWeeklyDuties(self):
 
         # Attach to self
-        self.weeklyDuties = readWeeklyDutiesFile()
+        self.weeklyDuties, weeklyDutyTypes = readWeeklyDutiesFile()
+        for duty in weeklyDutyTypes:
+            self.dutyTypes[duty] = weeklyDutyTypes[duty]
     
     # Add the singleDuties to the main schedule
     def loadSingleDuties(self):
 
         # Attach to self
-        self.singleDuties = readSingleDutiesFile()
+        self.singleDuties, singleDutyTypes = readSingleDutiesFile()
+        for duty in singleDutyTypes:
+            self.dutyTypes[duty] = singleDutyTypes[duty]
     
+    # Load the dutiesPerformed file and add them to the main schedule
+    def loadDutiesPerformed(self):
+        
+        # Read the dutiesPerformed file if it exists
+        dutiesPerformed = readDutiesPerformedFile()
+
+        # Assign each RA the appropriate dutiesPerformed
+        for name in self.schedules:
+
+            if name in dutiesPerformed:
+                self.dutiesPerformed[name] = dutiesPerformed[name]
+                self.schedules[name].dutiesPerformed = dutiesPerformed[name]
+            else:
+                self.dutiesPerformed[name] = {}
+                self.schedules[name].dutiesPerformed = {}
+
+    # Saves the current number of duties performed by each RA
+    def saveDutiesPerformed(self):
+
+        # Open the outputFile
+        dutiesPerformedFile = open("./data/dutiesPerformed.csv", "w")
+
+        # Write the header line
+        headerLine = "Duty Types,"
+        orderedDuties = []
+        for duty in self.dutyTypes:
+            if self.dutyTypes[duty] not in orderedDuties:
+                headerLine += self.dutyTypes[duty] + ","
+                orderedDuties.append(self.dutyTypes[duty])
+        headerLine = headerLine[:-1] + "\n"
+        dutiesPerformedFile.write(headerLine)
+
+        # Write the performed duties by each RA
+        for RA in self.schedules:
+            
+            # Start the dutiesPerformedLine
+            dutiesPerformedLine = RA
+
+            # Loop through the duties in the same order
+            for duty in orderedDuties:
+                
+                # If the RA hasn't performed this duty before, record a zero
+                if duty not in self.dutiesPerformed[RA]:
+                    dutiesPerformedLine += ",0"
+                
+                # Otherwise, write the number of times the RA has performed the duty
+                else:
+                    dutiesPerformedLine += "," + str(self.dutiesPerformed[RA][duty])
+            
+            # Add the end of the line to the dutiesPerformedLine and write it to the output file
+            dutiesPerformedLine += "\n"
+            dutiesPerformedFile.write(dutiesPerformedLine)
+
+        # Close the outputFile
+        dutiesPerformedFile.close()
+
     # Determines which RAs are available during a conflict
     def determineAvailableRAs(self, conflict):
 
@@ -133,11 +222,45 @@ class Schedule:
                 if RASchedule.building == RAPartnerSchedule.building and RASchedule.floor == RAPartnerSchedule.floor:
                     RASchedule.partners[RAPartner] = RAPartnerSchedule
     
-    # Create a schedule
-    def createSchedule(self, startDay, endDay):
+    # Creates a list of available RAs for all duties on a certain day
+    def createAvailableRAsForDay(self, day):
 
         # Will generate a dictionary of every duty and who is available to do those duties
-        self.schedule = {}
+        availableRAs = {}
+
+        # Loop through each singleDuty
+        for singleDuty in self.singleDuties:
+
+            # If the duty starts on this day, available RAs
+            if TimeStamp.isSameDay(self.singleDuties[singleDuty].startTime, day):
+                availableRAs[singleDuty] = {
+                    "conflict": self.singleDuties[singleDuty],
+                    "set": self.determineAvailableRAs(self.singleDuties[singleDuty])
+                }
+
+        # Loop through all the weeklyDuties
+        for weeklyDuty in self.weeklyDuties:
+
+            # Turn the weeklyDuty into a regular conflict if the weeklyDuty is the correct day of the week
+            if day.determineDayOfWeek() == self.weeklyDuties[weeklyDuty].day:
+
+                weeklyDutyStart = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].startHour, self.weeklyDuties[weeklyDuty].startMinute)
+                weeklyDutyEnd = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].endHour, self.weeklyDuties[weeklyDuty].endMinute)
+                generatedWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd))
+                
+                # Determine which RAs can perform this duty
+                availableRAs[weeklyDuty] = {
+                    "conflict": generatedWeeklyDuty,
+                    "set": self.determineAvailableRAs(generatedWeeklyDuty)
+                }
+
+        return availableRAs
+    
+    # Creates available RAs through a range of dates
+    def createAvailableRAsForRange(self, startDay, endDay):
+
+        # Will generate a dictionary of every duty and who is available to do those duties
+        availableRAs = {}
 
         # Loop through each day in the schedule
         duplicateStartDay = startDay.duplicate()
@@ -146,34 +269,32 @@ class Schedule:
         endDay.addTime(0, 0, 1, 0, 0)
         while not TimeStamp.isSameDay(duplicateStartDay, endDay):
 
-            # Will generate a dictionary of every duty and who is available to do those duties
-            availableRAs = {}
-
-            # Loop through each singleDuty
-            for singleDuty in self.singleDuties:
-
-                # If the duty starts on this day, available RAs
-                if TimeStamp.isSameDay(self.singleDuties[singleDuty].startTime, duplicateStartDay):
-                    availableRAs[singleDuty] = self.determineAvailableRAs(self.singleDuties[singleDuty])
-
-            # Loop through all the weeklyDuties
-            for weeklyDuty in self.weeklyDuties:
-
-                # Turn the weeklyDuty into a regular conflict if the weeklyDuty is the correct day of the week
-                if duplicateStartDay.determineDayOfWeek() == self.weeklyDuties[weeklyDuty].day:
-
-                    weeklyDutyStart = TimeStamp(duplicateStartDay.year, duplicateStartDay.month, duplicateStartDay.day, self.weeklyDuties[weeklyDuty].startHour, self.weeklyDuties[weeklyDuty].startMinute)
-                    weeklyDutyEnd = TimeStamp(duplicateStartDay.year, duplicateStartDay.month, duplicateStartDay.day, self.weeklyDuties[weeklyDuty].endHour, self.weeklyDuties[weeklyDuty].endMinute)
-                    generatedWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd))
-                    
-                    # Determine which RAs can perform this duty
-                    availableRAs[weeklyDuty] = self.determineAvailableRAs(generatedWeeklyDuty)
-
-            self.schedule[duplicateStartDay.reprDate()] = availableRAs
-
+            # Create the available RAs for each duty on this day
+            availableRAs[duplicateStartDay.reprDate()] = self.createAvailableRAsForDay(duplicateStartDay)
             duplicateStartDay.addTime(0, 0, 1, 0, 0)
         
-        for date in self.schedule:
+        return availableRAs
+
+    # Determines and assigns an RA for a given duty
+    def determineAndAssignRA(self, conflict, RASet):
+
+        pass
+
+    # Create a schedule
+    def createSchedule(self, startDay, endDay):
+
+        # Determine the available RAs in this date range
+        availableRAs = self.createAvailableRAsForRange(startDay, endDay)
+        
+        # Now we need to choose an RA for each duty
+        self.schedule = {}
+
+        # Save the state before trying anything
+        savedState = self.duplicate()
+        savedAvailableRAs = deepcopy(availableRAs)
+
+        # Loop through each date and choose an RA to perform each duty
+        for date in availableRAs:
             print()
-            print(date, self.schedule[date])
+            print(date, availableRAs[date])
 

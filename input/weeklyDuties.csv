@@ -1,2 +1,16 @@
-[Duty Name],[Day],[Start Time],[End Time]
-Desk,Monday,10:00,13:00
+[Duty Name],[Duty Type],[Day],[Start Time],[End Time]
+Monday Mudge Desk 8am,Desk,Monday,08:00,11:00
+Monday Mudge Desk 11am,Desk,Monday,11:00,14:00
+Monday Mudge Desk 2pm,Desk,Monday,14:00,17:00
+Monday Mudge Desk 5pm,Desk,Monday,17:00,20:00
+Monday Mudge Desk 8pm,Desk,Monday,20:00,23:00
+Tuesday Mudge Desk 8am,Desk,Tuesday,08:00,11:00
+Tuesday Mudge Desk 11am,Desk,Tuesday,11:00,14:00
+Tuesday Mudge Desk 2pm,Desk,Tuesday,14:00,17:00
+Tuesday Mudge Desk 5pm,Desk,Tuesday,17:00,20:00
+Tuesday Mudge Desk 8pm,Desk,Tuesday,20:00,23:00
+Wednesday Mudge Desk 8am,Desk,Wednesday,08:00,11:00
+Wednesday Mudge Desk 11am,Desk,Wednesday,11:00,14:00
+Wednesday Mudge Desk 2pm,Desk,Wednesday,14:00,17:00
+Wednesday Mudge Desk 5pm,Desk,Wednesday,17:00,20:00
+Wednesday Mudge Desk 8pm,Desk,Wednesday,20:00,23:00

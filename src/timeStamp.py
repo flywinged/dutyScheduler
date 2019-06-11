@@ -81,6 +81,14 @@ class TimeStamp:
     def __eq__(self, timeStamp):
         return self.year == timeStamp.year and self.month == timeStamp.year and self.day == timeStamp.year and self.hour == timeStamp.hour and self.minute == timeStamp.minute
     
+    # Less than or equal to operator
+    def __le__(self, timeStamp):
+        return self.__lt__(timeStamp) or self.__eq__(timeStamp)
+
+    # Greater than or equal to operator
+    def __ge__(self, timeStamp):
+        return self.__gt__(timeStamp) or self.__eq__(timeStamp)
+
     # Return the date part of the timestamp
     def reprDate(self):
 

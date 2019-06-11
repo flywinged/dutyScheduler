@@ -3,16 +3,17 @@
 import sys, os
 
 from src.helpers import readNameFile
+from src.schedule import Schedule
 
 # Global list of input files
-fileNames = ["weeklyConflicts", "singleConflicts", "floors", "buildings", "daysOff", "weeklyDuties", "singleDuties"]
+inputFileNames = ["weeklyConflicts", "singleConflicts", "floors", "buildings", "daysOff", "weeklyDuties", "singleDuties"]
 
 # Generate the input files
 def generateInputFiles(names):
     
     # Create all the input files
     files = []
-    for fileName in fileNames: files.append(open("./input/" + fileName + ".csv", "w"))
+    for fileName in inputFileNames: files.append(open("./input/" + fileName + ".csv", "w"))
 
     # Create the format guide for each file
     # weeklyConflicts guide
@@ -31,26 +32,26 @@ def generateInputFiles(names):
     files[4].write("[RA Name],[Date 1],[Date 2],[Date N]\n")
 
     # recurringDuties guide
-    files[5].write("[Duty Name],[Day],[Start Time],[End Time]\n")
+    files[5].write("[Duty Name],[Duty Type],[Day],[Start Time],[End Time]\n")
 
     # singleDuties guide
-    files[6].write("[Duty Name],[Start Date],[Start Time],[End Date],[End Time]\n")
+    files[6].write("[Duty Name],[Duty Type],[Start Date],[Start Time],[End Date],[End Time]\n")
 
     # Make a template for each name
-    for name in names[:5]:
+    for name in names:
 
         # Generate the line that will be written
         line = name + ","
         
         # Write the line to every file
-        for f in files: f.write(line + '\n')
+        for f in files[:5]: f.write(line + '\n')
 
     # Close all the files
     for f in files: f.close()
 
 # Clear input files
 def clearInputFiles():
-    for fileName in fileNames: os.unlink("./input/" + fileName + ".csv")
+    for fileName in inputFileNames: os.unlink("./input/" + fileName + ".csv")
 
 # Initialize all the input files for the user
 if __name__ == "__main__":
@@ -68,5 +69,4 @@ if __name__ == "__main__":
     elif sys.argv[1] == "clean":
         if input("Are you sure you want to clean the inputs? (type yes and press enter to clear) ") == "yes":
             clearInputFiles()
-        
         

@@ -24,6 +24,7 @@ class IndividualSchedule:
         self.singleConflicts = {}
         self.daysOff = []
         self.partners = {}
+        self.dutiesPerformed = {}
     
     # Print function
     def __repr__(self):
