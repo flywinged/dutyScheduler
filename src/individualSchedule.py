@@ -3,6 +3,8 @@
 from src.timeStamp import TimeStamp
 from src.conflict import Conflict
 
+from copy import deepcopy
+
 # Use this change what times a floor maybe be unattended
 # TODO: Make this loadable by a file
 floorUnattendedStartTime = TimeStamp(0, 0, 0, 19, 30)
@@ -20,12 +22,27 @@ class IndividualSchedule:
         # Attributes for the individual schedule
         self.floor = None
         self.building = None
-        self.weeklyConflicts = {}
-        self.singleConflicts = {}
+        self.weeklyConflicts = []
+        self.singleConflicts = []
         self.daysOff = []
         self.partners = {}
         self.dutiesPerformed = {}
     
+    # Function to duplicate an individual schedule
+    def duplicate(self):
+
+        newSchedule = IndividualSchedule("")
+        newSchedule.name = deepcopy(self.name)
+        newSchedule.floor = deepcopy(self.floor)
+        newSchedule.building = deepcopy(self.building)
+        newSchedule.weeklyConflicts = deepcopy(self.weeklyConflicts)
+        newSchedule.singleConflicts = deepcopy(self.singleConflicts)
+        newSchedule.daysOff = deepcopy(self.daysOff)
+        newSchedule.partners = deepcopy(self.partners)
+        newSchedule.dutiesPerformed = deepcopy(self.dutiesPerformed)
+
+        return newSchedule
+
     # Print function
     def __repr__(self):
 

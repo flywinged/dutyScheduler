@@ -2,6 +2,7 @@
 
 from src.individualSchedule import IndividualSchedule
 from src.helpers import readNameFile, readFloorFile, readBuildingFile, readWeeklyConflictsFile, readSingleConflictsFile, readWeeklyDutiesFile, readSingleDutiesFile, readDaysOffFile, readDutiesPerformedFile
+from src.helpers import weightedRandom
 from src.conflict import Conflict
 from src.timeStamp import TimeStamp
 from copy import deepcopy
@@ -53,7 +54,10 @@ class Schedule:
         newSchedule = Schedule(loadFiles = False)
 
         # Copy over all the data
-        newSchedule.schedules = deepcopy(self.schedules)
+        newSchedule.schedules = {}
+        for RA in self.schedules:
+            newSchedule.schedules[RA] = self.schedules[RA].duplicate()
+
         newSchedule.floors = deepcopy(self.floors)
         newSchedule.buildings = deepcopy(self.buildings)
         newSchedule.weeklyConflicts = deepcopy(self.weeklyConflicts)
@@ -276,9 +280,44 @@ class Schedule:
         return availableRAs
 
     # Determines and assigns an RA for a given duty
-    def determineAndAssignRA(self, conflict, RASet):
+    def determineAndAssignRA(self, dutyName, conflict, RASet):
 
-        pass
+        if len(RASet) == 0: return False
+
+        # Create a dictionary of probabilities for each RA who is available of recieving this duty
+        weightedDictionary = {}
+        totalCount = 0
+        minAmount = 1000
+        maxAmount = 0
+        for RA in RASet:
+
+            if dutyName not in self.dutyTypes: amount = 1
+            else: amount =  self.schedules[RA].dutiesPerformed[self.dutyTypes[dutyName]]
+
+            if minAmount > amount: minAmount = amount
+            if maxAmount < amount: maxAmount = amount
+
+            totalCount += amount
+            weightedDictionary[RA] = amount
+        
+        # Reweight the dictionary accordingly
+        for RA in weightedDictionary:
+            weightedDictionary[RA] = (maxAmount - weightedDictionary[RA] + 1) ** 2
+        
+        # Choose an RA at random
+        chosenRA = weightedRandom(weightedDictionary)
+
+        # Assign the RA a single conflict reflecting this new addition
+        self.schedules[chosenRA].singleConflicts.append(conflict)
+
+        # Update the dutiesPerformed dictionary
+        if dutyName in self.dutyTypes:
+            if self.dutyTypes[dutyName] not in self.schedules[chosenRA].dutiesPerformed:
+                self.schedules[chosenRA].dutiesPerformed[self.dutyTypes[dutyName]] = 1
+            else:
+                self.schedules[chosenRA].dutiesPerformed[self.dutyTypes[dutyName]] += 1
+
+        return chosenRA
 
     # Create a schedule
     def createSchedule(self, startDay, endDay):
@@ -294,7 +333,30 @@ class Schedule:
         savedAvailableRAs = deepcopy(availableRAs)
 
         # Loop through each date and choose an RA to perform each duty
-        for date in availableRAs:
-            print()
-            print(date, availableRAs[date])
+        retry = True
+        while retry:
+            retry = False
+
+            self = savedState.duplicate()
+            availableRAs = deepcopy(savedAvailableRAs)
+
+            for date in availableRAs:
+                self.schedule[date] = {}
+                breakOut = False
+
+                for duty in availableRAs[date]:
+                    chosenRA = self.determineAndAssignRA(duty, availableRAs[date][duty]["conflict"], availableRAs[date][duty]["set"])
+
+                    if chosenRA == False:
+                        breakOut = True
+                        break
+
+                    availableRAs[date] = self.createAvailableRAsForDay(TimeStamp.createDayFromString(date))
+                    self.schedule[date][duty] = chosenRA
+                
+                if breakOut:
+                    retry = True
+                    break
+                print(self.schedule[date])
+
 

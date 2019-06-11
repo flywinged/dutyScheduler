@@ -79,7 +79,7 @@ class TimeStamp:
     
     # Equal to comparator
     def __eq__(self, timeStamp):
-        return self.year == timeStamp.year and self.month == timeStamp.year and self.day == timeStamp.year and self.hour == timeStamp.hour and self.minute == timeStamp.minute
+        return self.year == timeStamp.year and self.month == timeStamp.month and self.day == timeStamp.day and self.hour == timeStamp.hour and self.minute == timeStamp.minute
     
     # Less than or equal to operator
     def __le__(self, timeStamp):

@@ -1,6 +1,6 @@
 # Automatic scheduler for CMU PreCollege Program
 
-import sys
+import sys, random
 from os.path import isfile as isFile
 
 from src.conflict import Conflict, RecurringConflict
@@ -261,3 +261,22 @@ def readDutiesPerformedFile():
     
     # Return the constructed dutiesPerformed file
     return dutiesPerformed
+
+# Chooses an element from a weighted dictionary
+def weightedRandom(D):
+
+    # First, sum the dictionary
+    S = 0
+    for key in D:
+        S += D[key]
+    
+    # Then generate a random number from range 0-S
+    value = random.random() * S
+
+    runningTotal = 0
+    for key in D:
+        runningTotal += D[key]
+        if runningTotal > value: return key
+    
+    # If nothing was chosen, jsut return the last key
+    return key
