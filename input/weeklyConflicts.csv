@@ -1,9 +1,57 @@
-[RA Name],[Day 1],[Start Time 1],[End Time 1],[Day 2],[Start Time 2],[Start Time 2],...[Day N],[Start Time N],[End Time N]
-RA1,Monday,08:00,09:00,Thursday,08:00,09:00
-RA2,Tuesday,11:00,11:30
-RA3,
-RA4,
-RA5,
-RA6,
-RA7,
-RA8,
+[RA Name],[Day1],[Start Time1],[End Time1],[Day2],[Start Time2],[Start Time2],...[DayN],[Start TimeN],[End TimeN]
+Michael Houde,Monday,09:00,11:00
+Caleb Felton,Monday,09:00,11:00
+Gabe Whitney,Monday,09:00,11:00,Monday,11:50,13:30,Tuesday,11:50,13:30,Wednesday,11:50,13:30,Thursday,09:00,11:00,Thursday,11:50,13:30,Friday,11:50,13:30
+Enock Maburi,Monday,09:00,11:00,Monday,13:00,17:10,Tuesday,13:00,17:10,Wednesday,13:00,17:10,Thursday,09:00,11:00,Thursday,13:00,17:10,Friday,13:00,17:10
+Franklin Guttman,Monday,09:00,11:00
+Harrison Lian,Monday,09:00,11:00,Monday,10:30,12:10,Tuesday,10:30,12:10,Wednesday,10:30,12:10,Thursday,10:30,12:10,Friday,10:30,12:10
+Langston Wells,Monday,09:00,11:00,Sunday,06:50,12:00
+Uni Hunte,Monday,09:00,11:00
+Taiz Iturbide,Monday,09:00,11:00
+Lily Huang,Monday,09:00,11:00
+Sarah Preston,Monday,09:00,11:00
+Zee Salman,Monday,09:00,11:00
+Katy Zapanta,Monday,12:00,14:00
+Emma Cai,Monday,12:00,14:00
+Richard Nabahe,Monday,12:00,14:00
+Jacob Abrams,Monday,08:50,10:30,Monday,12:00,14:00,Tuesday,08:50,10:30,Wednesday,08:50,10:30,Thursday,08:50,10:30,Thursday,12:00,14:00,Friday,08:50,10:30
+Grace LaCarte,Monday,12:00,14:00
+Ayana Williams,Monday,12:00,14:00
+Logan Herman,Monday,12:00,14:00
+Brian Wen,Monday,10:30,12:10,Monday,12:00,14:00,Tuesday,10:30,12:10,Wednesday,10:30,12:10,Thursday,10:30,12:10,Friday,10:30,12:10
+Gabriela Colon Roura,Monday,12:00,14:00
+Halanna Yuh,Monday,12:00,14:00
+Theo Whiddon,Monday,12:00,14:00
+James Barkley,Monday,12:00,14:00
+Bethany Bauer,Monday,12:00,14:00
+Maya English,Monday,12:00,14:00
+Marco Acea,Monday,12:00,14:00
+Alexander Kampas,Monday,12:00,14:00
+Neville Caceres,Monday,09:00,11:00
+Lucas Jia,Monday,09:00,11:00,Monday,10:30,12:10,Tuesday,10:30,12:10,Wednesday,10:30,12:10,Thursday,10:30,12:10,Friday,10:30,12:10
+Quinton Thomas,Monday,09:00,11:00
+Eric Liang,Monday,09:00,11:00,Tuesday,11:00,15:10,Wednesday,11:00,15:10,Thursday,09:00,11:00,Thursday,11:00,15:10,Friday,10:30,13:30
+Amber Griffith,Monday,09:00,11:00,Tuesday,16:30,20:10,Thursday,16:30,20:10
+Sarah Chen,Monday,09:00,11:00
+Eileen Kim,Monday,09:00,11:00
+Sabrina Romansky,Monday,09:00,11:00
+Nalya Dority,Monday,09:00,11:00
+Mihika Bansal,Monday,09:00,11:00
+Tianxin Xu,Monday,09:00,11:00,Monday,11:00,12:10,Wednesday,14:00,15:10
+Nathan Ang,Monday,12:00,14:00
+Juan Diego Meza-Vinasco,Monday,12:00,14:00
+Bennet Huffman,Monday,12:00,14:00,Monday,15:00,16:30,Tuesday,15:00,16:30,Wednesday,15:00,16:30,Thursday,15:00,16:30,Friday,15:00,16:30
+Justin Wang,Monday,12:00,14:00
+Joaquinn Foo,Monday,12:00,14:00
+Andrew Thompson,Monday,12:00,14:00
+Ryan Huang,Monday,12:00,14:00
+Grant Glazier,Monday,12:00,14:00
+Miriam Marino,Monday,12:00,14:00
+Grace Recavarren,Monday,12:00,14:00
+Reanna Conway,Monday,12:00,14:00
+Isabella Fons,Monday,12:00,14:00
+Sophie Nakai,Monday,08:50,10:30,Monday,12:00,14:00,Tuesday,08:50,10:30,Wednesday,08:50,10:30,Thursday,08:50,10:30,Thursday,12:00,14:00,Friday,08:50,10:30
+Bridget Mensah,Monday,10:30,11:30,Monday,12:00,14:00,Tuesday,10:30,12:30,Wednesday,10:30,12:30,Thursday,09:00,11:00,Thursday,10:30,12:30
+Caroline Song,Monday,12:00,14:00
+Lexie Rodriguez,Monday,12:00,14:00
+Taylor Baer,Monday,12:00,14:00

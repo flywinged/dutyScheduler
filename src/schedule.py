@@ -345,6 +345,7 @@ class Schedule:
         while retry:
             retry = False
             schedulingAttempts += 1
+            print(schedulingAttempts)
             if schedulingAttempts > 1000:
                 print("ERROR: Too many scheduling attempts. (More than 1000 tried. Likely the schedule is impossible with the given conflicts and duties)")
                 sys.exit()
@@ -358,12 +359,17 @@ class Schedule:
                 self.schedule[date] = {}
                 breakOut = False
 
+                if "Monday Donner Desk 7am" in availableRAs[date]:
+                    print(availableRAs[date]["Monday Donner Desk 7am"])
+
                 # Chose an RA for each duty
                 for duty in availableRAs[date]:
                     chosenRA = self.determineAndAssignRA(duty, availableRAs[date][duty]["conflict"], availableRAs[date][duty]["set"])
 
                     # Make sure there was an RA chosen. If there wasn't initiate a retry
                     if chosenRA == False:
+                        print(availableRAs[date][duty])
+                        print(duty)
                         breakOut = True
                         break
 
@@ -373,7 +379,6 @@ class Schedule:
                 if breakOut:
                     retry = True
                     break
-                print(self.schedule[date])
 
         # For each day in the schedule, create a csv with all the information
         for date in self.schedule:
