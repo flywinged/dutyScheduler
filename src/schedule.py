@@ -7,7 +7,7 @@ from src.conflict import Conflict
 from src.timeStamp import TimeStamp
 
 from copy import deepcopy
-import sys
+import sys, os
 
 # Class for handling all the individual schedules
 class Schedule:
@@ -160,6 +160,9 @@ class Schedule:
 
     # Saves the current number of duties performed by each RA
     def saveDutiesPerformed(self):
+
+        # Check to make sure there is an output folder
+        if not os.path.isdir("./data"): os.mkdir("./data")
 
         # Open the outputFile
         dutiesPerformedFile = open("./data/dutiesPerformed.csv", "w")
@@ -374,6 +377,9 @@ class Schedule:
 
         # For each day in the schedule, create a csv with all the information
         for date in self.schedule:
+
+            # Check to make sure there is an output folder
+            if not os.path.isdir("./output"): os.mkdir("./output")
 
             # Open a file to write the data to
             outputFile = open("./output/" + date.replace("/", ".") + ".csv", "w")
