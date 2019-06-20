@@ -131,9 +131,17 @@ class IndividualSchedule:
                 weeklyConflictEnd = TimeStamp(duplicateStartTime.year, duplicateStartTime.month, duplicateStartTime.day, weeklyConflict.endHour, weeklyConflict.endMinute)
                 generatedWeeklyconflict = Conflict(str(weeklyConflictStart), str(weeklyConflictEnd))
 
-                # Determine if this weekly Conflict conflicts with the conflict
-                if Conflict.doConflictsOverlap(generatedWeeklyconflict, conflict) and weeklyConflict.conflictName != "No Name":
-                    return True
+                doesConflictOverlap = Conflict.doConflictsOverlap(generatedWeeklyconflict, conflict)
+
+                if "On-Duty" in conflict.conflictName:
+                    if doesConflictOverlap and "D" in weeklyConflict.flags:
+                        return True
+
+                    # If no flags, ignore all overlaps if they aren't named. (This means any overlap with non-duties are ignored unless the "D" flag is present)
+                    elif doesConflictOverlap and weeklyConflict.conflictName != "No Name":
+                        return True
+                else:
+                    if doesConflictOverlap: return True
 
                 # Increment the time
                 duplicateStartTime.addTime(0, 0, 1, 0, 0)
@@ -141,8 +149,17 @@ class IndividualSchedule:
         # Check if there are any single conflict conflicts
         for singleConflict in self.singleConflicts:
 
-            if Conflict.doConflictsOverlap(singleConflict, conflict) and singleConflict.conflictName != "No Name":
-                return True
+            doesConflictOverlap = Conflict.doConflictsOverlap(singleConflict, conflict)
+            if "On-Duty" in conflict.conflictName:
+                if doesConflictOverlap and "D" in singleConflict.flags:
+                    return True
+
+                # If no flags, ignore all overlaps if they aren't named. (This means any overlap with non-duties are ignored unless the "D" flag is present)
+                elif doesConflictOverlap and singleConflict.conflictName != "No Name":
+                    return True
+            
+            else:
+                if doesConflictOverlap: return True
         
         # TODO: Check if there are any days off which conflict
         for daysOff in self.daysOff:

@@ -313,7 +313,7 @@ class Schedule:
 
             power = 2
             if "On-Duty" in dutyName:
-                power = 3
+                power = 4
             weightedDictionary[RA] = (maxAmount - weightedDictionary[RA] + 1) ** power
         
         # Choose an RA at random

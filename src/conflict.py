@@ -21,6 +21,13 @@ class Conflict:
         self.startTime = TimeStamp.createTimeFromString(startTimeStampText)
         self.endTime = TimeStamp.createTimeFromString(endTimeStampText)
         self.conflictName = conflictName
+        self.flags = set()
+
+        # Check for any flags
+        startTimeText = startTimeStampText[11:]
+        if len(startTimeText) >= 5:
+            for flag in startTimeText[5:]:
+                self.flags.add(flag)
     
     # Convert the Conflict to a string
     def __repr__(self):
@@ -50,6 +57,7 @@ class RecurringConflict:
     def __init__(self, dayText, startTimeText, endTimeText, conflictName = "No Name"):
 
         self.conflictName = conflictName
+        self.flags = set()
 
         # Get the day of the week for this conflict
         try:
@@ -64,6 +72,12 @@ class RecurringConflict:
             self.startMinute = int(startTimeText[3:5])
             self.endHour     = int(endTimeText[0:2])
             self.endMinute   = int(endTimeText[3:5])
+
+            # Check for any flags
+            if len(startTimeText) >= 5:
+                for flag in startTimeText[5:]:
+                    self.flags.add(flag)
+                    
         except:
             print("ERROR: Unable to parse the times for " + dayText + "," + startTimeText + "," + endTimeText + ". Check formatting again")
             sys.exit()
