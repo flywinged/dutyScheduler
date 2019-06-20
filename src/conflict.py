@@ -15,11 +15,12 @@ def representsInt(string):
 class Conflict:
 
     # Constructor. Text format is: "startTime - endTime" (start and endTime are in the same format as a timestamp)
-    def __init__(self, startTimeStampText, endTimeStampText):
+    def __init__(self, startTimeStampText, endTimeStampText, conflictName = "No Name"):
 
         # Extract the start time of the conflict
         self.startTime = TimeStamp.createTimeFromString(startTimeStampText)
         self.endTime = TimeStamp.createTimeFromString(endTimeStampText)
+        self.conflictName = conflictName
     
     # Convert the Conflict to a string
     def __repr__(self):
@@ -46,7 +47,9 @@ class RecurringConflict:
 
     # Constructor Text is in format "Day - HH:mm - HH:mm" where Day is the day of the week spelled out and capitalized and
     #   HH:mm - HH:mm describes the start and end time for the conflict
-    def __init__(self, dayText, startTimeText, endTimeText):
+    def __init__(self, dayText, startTimeText, endTimeText, conflictName = "No Name"):
+
+        self.conflictName = conflictName
 
         # Get the day of the week for this conflict
         try:
@@ -63,7 +66,8 @@ class RecurringConflict:
             self.endMinute   = int(endTimeText[3:5])
         except:
             print("ERROR: Unable to parse the times for " + dayText + "," + startTimeText + "," + endTimeText + ". Check formatting again")
-    
+            sys.exit()
+
     # Convert the weeklyConflict to a string
     def __repr__(self):
 

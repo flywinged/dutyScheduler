@@ -94,6 +94,11 @@ class IndividualSchedule:
     #   bool - true if there is a conflict, false if otherwise
     def doesTimeConflict(self, conflict, isPartner = False):
 
+        # Determine if the conflict is a building specific duty
+        if "On-Duty" in conflict.conflictName:
+            if self.building not in conflict.conflictName:
+                return True
+
         # First determine if any of the weeklyConflicts conflict with the conflict
 
         # The days of the week the conflict occurs on
@@ -120,7 +125,6 @@ class IndividualSchedule:
                     
                     # Increment the time
                     duplicateStartTime.addTime(0, 0, 1, 0, 0)
-
                     continue
                 
                 weeklyConflictStart = TimeStamp(duplicateStartTime.year, duplicateStartTime.month, duplicateStartTime.day, weeklyConflict.startHour, weeklyConflict.startMinute)
@@ -128,7 +132,8 @@ class IndividualSchedule:
                 generatedWeeklyconflict = Conflict(str(weeklyConflictStart), str(weeklyConflictEnd))
 
                 # Determine if this weekly Conflict conflicts with the conflict
-                if Conflict.doConflictsOverlap(generatedWeeklyconflict, conflict): return True
+                if Conflict.doConflictsOverlap(generatedWeeklyconflict, conflict) and weeklyConflict.conflictName != "No Name":
+                    return True
 
                 # Increment the time
                 duplicateStartTime.addTime(0, 0, 1, 0, 0)
@@ -136,7 +141,8 @@ class IndividualSchedule:
         # Check if there are any single conflict conflicts
         for singleConflict in self.singleConflicts:
 
-            if Conflict.doConflictsOverlap(singleConflict, conflict): return True
+            if Conflict.doConflictsOverlap(singleConflict, conflict) and singleConflict.conflictName != "No Name":
+                return True
         
         # TODO: Check if there are any days off which conflict
         for daysOff in self.daysOff:

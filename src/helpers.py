@@ -147,12 +147,15 @@ def readWeeklyDutiesFile():
         splitLine = line.split(",")
 
         # Print error message if the splitLine is not in the correct format
-        if len(splitLine) != 5:
+        if not (len(splitLine) == 5 or len(splitLine) == 7):
             print("ERROR: line \"" + line + "\" cannot be parsed as a recurring duty.")
             sys.exit()
         
         # Attach the weekly conflicts to the RA
-        weeklyDuties[splitLine[0]] = RecurringConflict(splitLine[2], splitLine[3], splitLine[4])
+        weeklyDuties[splitLine[0]] = RecurringConflict(splitLine[2], splitLine[3], splitLine[4], splitLine[0])
+        if len(splitLine) == 7:
+            weeklyDuties[splitLine[0]].addGracePeriod(splitLine[5], splitLine[6])
+
         if splitLine[1] != "":
             dutyTypes[splitLine[0]] = splitLine[1]
 
@@ -181,7 +184,7 @@ def readSingleDutiesFile():
             sys.exit()
         
         # Attach the single Duty to the dictionary of single duties
-        singleDuties[splitLine[0]] = Conflict(splitLine[2] + " " + splitLine[3], splitLine[4] + " " + splitLine[5])
+        singleDuties[splitLine[0]] = Conflict(splitLine[2] + " " + splitLine[3], splitLine[4] + " " + splitLine[5], splitLine[0])
         if splitLine[1] != "":
             dutyTypes[splitLine[0]] = splitLine[1]
 
@@ -213,7 +216,7 @@ def readDaysOffFile():
             dayOffStart = TimeStamp.createTimeFromString(splitLine[i] + " 00:00")
             dayOffEnd = dayOffStart.duplicate()
             dayOffEnd.addTime(0, 0, 1, 0, 0)
-            RADaysOff.append(Conflict(str(dayOffStart), str(dayOffEnd)))
+            RADaysOff.append(Conflict(str(dayOffStart), str(dayOffEnd), "Day Off"))
 
         # Attach the RAdaysOff to daysOff
         daysOff[splitLine[0]] = RADaysOff

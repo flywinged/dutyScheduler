@@ -253,14 +253,17 @@ class Schedule:
             # Turn the weeklyDuty into a regular conflict if the weeklyDuty is the correct day of the week
             if day.determineDayOfWeek() == self.weeklyDuties[weeklyDuty].day:
 
+                RAset = set()
+
                 weeklyDutyStart = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].startHour, self.weeklyDuties[weeklyDuty].startMinute)
                 weeklyDutyEnd = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].endHour, self.weeklyDuties[weeklyDuty].endMinute)
-                generatedWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd))
+                fullWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd), self.weeklyDuties[weeklyDuty].conflictName)
+                RAset = self.determineAvailableRAs(fullWeeklyDuty)
                 
                 # Determine which RAs can perform this duty
                 availableRAs[weeklyDuty] = {
-                    "conflict": generatedWeeklyDuty,
-                    "set": self.determineAvailableRAs(generatedWeeklyDuty)
+                    "conflict": fullWeeklyDuty,
+                    "set": RAset
                 }
 
         return availableRAs
@@ -307,7 +310,11 @@ class Schedule:
         
         # Reweight the dictionary accordingly
         for RA in weightedDictionary:
-            weightedDictionary[RA] = (maxAmount - weightedDictionary[RA] + 1) ** 2
+
+            power = 2
+            if "On-Duty" in dutyName:
+                power = 3
+            weightedDictionary[RA] = (maxAmount - weightedDictionary[RA] + 1) ** power
         
         # Choose an RA at random
         chosenRA = weightedRandom(weightedDictionary)
@@ -345,7 +352,6 @@ class Schedule:
         while retry:
             retry = False
             schedulingAttempts += 1
-            print(schedulingAttempts)
             if schedulingAttempts > 1000:
                 print("ERROR: Too many scheduling attempts. (More than 1000 tried. Likely the schedule is impossible with the given conflicts and duties)")
                 sys.exit()
@@ -356,11 +362,11 @@ class Schedule:
 
             # Loop through each date and choose an RA to perform each duty
             for date in availableRAs:
+
+                print("Scheduling:", date)
+
                 self.schedule[date] = {}
                 breakOut = False
-
-                if "Monday Donner Desk 7am" in availableRAs[date]:
-                    print(availableRAs[date]["Monday Donner Desk 7am"])
 
                 # Chose an RA for each duty
                 for duty in availableRAs[date]:
