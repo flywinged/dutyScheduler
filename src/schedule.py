@@ -258,6 +258,7 @@ class Schedule:
                 weeklyDutyStart = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].startHour, self.weeklyDuties[weeklyDuty].startMinute)
                 weeklyDutyEnd = TimeStamp(day.year, day.month, day.day, self.weeklyDuties[weeklyDuty].endHour, self.weeklyDuties[weeklyDuty].endMinute)
                 fullWeeklyDuty = Conflict(str(weeklyDutyStart), str(weeklyDutyEnd), self.weeklyDuties[weeklyDuty].conflictName)
+                fullWeeklyDuty.flags = self.weeklyDuties[weeklyDuty].flags
                 RAset = self.determineAvailableRAs(fullWeeklyDuty)
                 
                 # Determine which RAs can perform this duty

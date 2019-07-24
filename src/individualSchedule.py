@@ -95,7 +95,7 @@ class IndividualSchedule:
     def doesTimeConflict(self, conflict, isPartner = False):
 
         # Determine if the conflict is a building specific duty
-        if "On-Duty" in conflict.conflictName:
+        if "On-Duty" in conflict.conflictName or "B" in conflict.flags:
             if self.building not in conflict.conflictName:
                 return True
 

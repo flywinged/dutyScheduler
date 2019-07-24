@@ -1,19 +1,4 @@
 [Duty Name],[Duty Type],[Day],[Start Time],[End Time]
-Monday Donner Desk 7am,Desk,Monday,06:50,09:00
-Monday Donner Desk 9am,Desk,Monday,09:00,12:00
-Monday Donner Desk 12pm,Desk,Monday,12:00,15:00
-Monday Donner Desk 3pm,Desk,Monday,15:00,18:00
-Monday Donner Desk 6pm,Desk,Monday,18:00,21:00
-Monday Donner Desk 9pm,Desk,Monday,21:00,23:00
-Monday Donner Round 9am,Reg,Monday,09:00,09:50
-Monday Donner Round 12pm,Reg,Monday,12:00,12:50
-Monday Donner Round 3pm,Reg,Monday,15:00,15:50
-Monday Donner Round 6pm,Reg,Monday,18:00,18:50
-Monday Donner Round 9pm,Reg,Monday,21:00,21:50
-Monday Donner Round 12am,Reg,Monday,23:00,23:50
-Monday Donner Sign-In1,Reg,Monday,20:00,22:30
-Monday Donner Sign-In2,Reg,Monday,20:00,22:30
-Monday Donner On-Duty,On-Duty,Monday,00:01,24:00
 Monday Mudge Desk 7am,Desk,Monday,06:50,09:00
 Monday Mudge Desk 9am,Desk,Monday,09:00,12:00
 Monday Mudge Desk 12pm,Desk,Monday,12:00,15:00
@@ -59,23 +44,23 @@ Monday E-Tower Round 12am,Reg,Monday,23:00,23:50
 Monday E-Tower Sign-In1,Reg,Monday,20:00,22:30
 Monday E-Tower Sign-In2,Reg,Monday,20:00,22:30
 Monday E-Tower On-Duty,On-Duty,Monday,00:01,24:00
+Monday Donner Desk 7am,Desk,Monday,06:50,09:00
+Monday Donner Desk 9am,Desk,Monday,09:00,12:00
+Monday Donner Desk 12pm,Desk,Monday,12:00,15:00
+Monday Donner Desk 3pm,Desk,Monday,15:00,18:00
+Monday Donner Desk 6pm,Desk,Monday,18:00,21:00
+Monday Donner Desk 9pm,Desk,Monday,21:00,23:00
+Monday Donner Round 9am,Reg,Monday,09:00,09:50
+Monday Donner Round 12pm,Reg,Monday,12:00,12:50
+Monday Donner Round 3pm,Reg,Monday,15:00,15:50
+Monday Donner Round 6pm,Reg,Monday,18:00,18:50
+Monday Donner Round 9pm,Reg,Monday,21:00,21:50
+Monday Donner Round 12am,Reg,Monday,23:00,23:50
+Monday Donner Sign-In1,Reg,Monday,20:00,22:30
+Monday Donner Sign-In2,Reg,Monday,20:00,22:30
+Monday Donner On-Duty,On-Duty,Monday,00:01,24:00
 Monday Bus Duty 1,Reg,Monday,08:15,09:30
 Monday Bus Duty 2,Reg,Monday,08:15,09:30
-Tuesday Donner Desk 7am,Desk,Tuesday,06:50,09:00
-Tuesday Donner Desk 9am,Desk,Tuesday,09:00,12:00
-Tuesday Donner Desk 12pm,Desk,Tuesday,12:00,15:00
-Tuesday Donner Desk 3pm,Desk,Tuesday,15:00,18:00
-Tuesday Donner Desk 6pm,Desk,Tuesday,18:00,21:00
-Tuesday Donner Desk 9pm,Desk,Tuesday,21:00,23:00
-Tuesday Donner Round 9am,Reg,Tuesday,09:00,09:50
-Tuesday Donner Round 12pm,Reg,Tuesday,12:00,12:50
-Tuesday Donner Round 3pm,Reg,Tuesday,15:00,15:50
-Tuesday Donner Round 6pm,Reg,Tuesday,18:00,18:50
-Tuesday Donner Round 9pm,Reg,Tuesday,21:00,21:50
-Tuesday Donner Round 12am,Reg,Tuesday,23:00,23:50
-Tuesday Donner Sign-In1,Reg,Tuesday,20:00,22:30
-Tuesday Donner Sign-In2,Reg,Tuesday,20:00,22:30
-Tuesday Donner On-Duty,On-Duty,Tuesday,00:01,24:00
 Tuesday Mudge Desk 7am,Desk,Tuesday,06:50,09:00
 Tuesday Mudge Desk 9am,Desk,Tuesday,09:00,12:00
 Tuesday Mudge Desk 12pm,Desk,Tuesday,12:00,15:00
@@ -121,23 +106,23 @@ Tuesday E-Tower Round 12am,Reg,Tuesday,23:00,23:50
 Tuesday E-Tower Sign-In1,Reg,Tuesday,20:00,22:30
 Tuesday E-Tower Sign-In2,Reg,Tuesday,20:00,22:30
 Tuesday E-Tower On-Duty,On-Duty,Tuesday,00:01,24:00
+Tuesday Donner Desk 7am,Desk,Tuesday,06:50,09:00
+Tuesday Donner Desk 9am,Desk,Tuesday,09:00,12:00
+Tuesday Donner Desk 12pm,Desk,Tuesday,12:00,15:00
+Tuesday Donner Desk 3pm,Desk,Tuesday,15:00,18:00
+Tuesday Donner Desk 6pm,Desk,Tuesday,18:00,21:00
+Tuesday Donner Desk 9pm,Desk,Tuesday,21:00,23:00
+Tuesday Donner Round 9am,Reg,Tuesday,09:00,09:50
+Tuesday Donner Round 12pm,Reg,Tuesday,12:00,12:50
+Tuesday Donner Round 3pm,Reg,Tuesday,15:00,15:50
+Tuesday Donner Round 6pm,Reg,Tuesday,18:00,18:50
+Tuesday Donner Round 9pm,Reg,Tuesday,21:00,21:50
+Tuesday Donner Round 12am,Reg,Tuesday,23:00,23:50
+Tuesday Donner Sign-In1,Reg,Tuesday,20:00,22:30
+Tuesday Donner Sign-In2,Reg,Tuesday,20:00,22:30
+Tuesday Donner On-Duty,On-Duty,Tuesday,00:01,24:00
 Tuesday Bus Duty 1,Reg,Tuesday,08:15,09:30
 Tuesday Bus Duty 2,Reg,Tuesday,08:15,09:30
-Wednesday Donner Desk 7am,Desk,Wednesday,06:50,09:00
-Wednesday Donner Desk 9am,Desk,Wednesday,09:00,12:00
-Wednesday Donner Desk 12pm,Desk,Wednesday,12:00,15:00
-Wednesday Donner Desk 3pm,Desk,Wednesday,15:00,18:00
-Wednesday Donner Desk 6pm,Desk,Wednesday,18:00,21:00
-Wednesday Donner Desk 9pm,Desk,Wednesday,21:00,23:00
-Wednesday Donner Round 9am,Reg,Wednesday,09:00,09:50
-Wednesday Donner Round 12pm,Reg,Wednesday,12:00,12:50
-Wednesday Donner Round 3pm,Reg,Wednesday,15:00,15:50
-Wednesday Donner Round 6pm,Reg,Wednesday,18:00,18:50
-Wednesday Donner Round 9pm,Reg,Wednesday,21:00,21:50
-Wednesday Donner Round 12am,Reg,Wednesday,23:00,23:50
-Wednesday Donner Sign-In1,Reg,Wednesday,20:00,22:30
-Wednesday Donner Sign-In2,Reg,Wednesday,20:00,22:30
-Wednesday Donner On-Duty,On-Duty,Wednesday,00:01,24:00
 Wednesday Mudge Desk 7am,Desk,Wednesday,06:50,09:00
 Wednesday Mudge Desk 9am,Desk,Wednesday,09:00,12:00
 Wednesday Mudge Desk 12pm,Desk,Wednesday,12:00,15:00
@@ -183,23 +168,23 @@ Wednesday E-Tower Round 12am,Reg,Wednesday,23:00,23:50
 Wednesday E-Tower Sign-In1,Reg,Wednesday,20:00,22:30
 Wednesday E-Tower Sign-In2,Reg,Wednesday,20:00,22:30
 Wednesday E-Tower On-Duty,On-Duty,Wednesday,00:01,24:00
+Wednesday Donner Desk 7am,Desk,Wednesday,06:50,09:00
+Wednesday Donner Desk 9am,Desk,Wednesday,09:00,12:00
+Wednesday Donner Desk 12pm,Desk,Wednesday,12:00,15:00
+Wednesday Donner Desk 3pm,Desk,Wednesday,15:00,18:00
+Wednesday Donner Desk 6pm,Desk,Wednesday,18:00,21:00
+Wednesday Donner Desk 9pm,Desk,Wednesday,21:00,23:00
+Wednesday Donner Round 9am,Reg,Wednesday,09:00,09:50
+Wednesday Donner Round 12pm,Reg,Wednesday,12:00,12:50
+Wednesday Donner Round 3pm,Reg,Wednesday,15:00,15:50
+Wednesday Donner Round 6pm,Reg,Wednesday,18:00,18:50
+Wednesday Donner Round 9pm,Reg,Wednesday,21:00,21:50
+Wednesday Donner Round 12am,Reg,Wednesday,23:00,23:50
+Wednesday Donner Sign-In1,Reg,Wednesday,20:00,22:30
+Wednesday Donner Sign-In2,Reg,Wednesday,20:00,22:30
+Wednesday Donner On-Duty,On-Duty,Wednesday,00:01,24:00
 Wednesday Bus Duty 1,Reg,Wednesday,08:15,09:30
 Wednesday Bus Duty 2,Reg,Wednesday,08:15,09:30
-Thursday Donner Desk 7am,Desk,Thursday,06:50,09:00
-Thursday Donner Desk 9am,Desk,Thursday,09:00,12:00
-Thursday Donner Desk 12pm,Desk,Thursday,12:00,15:00
-Thursday Donner Desk 3pm,Desk,Thursday,15:00,18:00
-Thursday Donner Desk 6pm,Desk,Thursday,18:00,21:00
-Thursday Donner Desk 9pm,Desk,Thursday,21:00,23:00
-Thursday Donner Round 9am,Reg,Thursday,09:00,09:50
-Thursday Donner Round 12pm,Reg,Thursday,12:00,12:50
-Thursday Donner Round 3pm,Reg,Thursday,15:00,15:50
-Thursday Donner Round 6pm,Reg,Thursday,18:00,18:50
-Thursday Donner Round 9pm,Reg,Thursday,21:00,21:50
-Thursday Donner Round 12am,Reg,Thursday,23:00,23:50
-Thursday Donner Sign-In1,Reg,Thursday,20:00,22:30
-Thursday Donner Sign-In2,Reg,Thursday,20:00,22:30
-Thursday Donner On-Duty,On-Duty,Thursday,00:01,24:00
 Thursday Mudge Desk 7am,Desk,Thursday,06:50,09:00
 Thursday Mudge Desk 9am,Desk,Thursday,09:00,12:00
 Thursday Mudge Desk 12pm,Desk,Thursday,12:00,15:00
@@ -245,23 +230,23 @@ Thursday E-Tower Round 12am,Reg,Thursday,23:00,23:50
 Thursday E-Tower Sign-In1,Reg,Thursday,20:00,22:30
 Thursday E-Tower Sign-In2,Reg,Thursday,20:00,22:30
 Thursday E-Tower On-Duty,On-Duty,Thursday,00:01,24:00
+Thursday Donner Desk 7am,Desk,Thursday,06:50,09:00
+Thursday Donner Desk 9am,Desk,Thursday,09:00,12:00
+Thursday Donner Desk 12pm,Desk,Thursday,12:00,15:00
+Thursday Donner Desk 3pm,Desk,Thursday,15:00,18:00
+Thursday Donner Desk 6pm,Desk,Thursday,18:00,21:00
+Thursday Donner Desk 9pm,Desk,Thursday,21:00,23:00
+Thursday Donner Round 9am,Reg,Thursday,09:00,09:50
+Thursday Donner Round 12pm,Reg,Thursday,12:00,12:50
+Thursday Donner Round 3pm,Reg,Thursday,15:00,15:50
+Thursday Donner Round 6pm,Reg,Thursday,18:00,18:50
+Thursday Donner Round 9pm,Reg,Thursday,21:00,21:50
+Thursday Donner Round 12am,Reg,Thursday,23:00,23:50
+Thursday Donner Sign-In1,Reg,Thursday,20:00,22:30
+Thursday Donner Sign-In2,Reg,Thursday,20:00,22:30
+Thursday Donner On-Duty,On-Duty,Thursday,00:01,24:00
 Thursday Bus Duty 1,Reg,Thursday,08:15,09:30
 Thursday Bus Duty 2,Reg,Thursday,08:15,09:30
-Friday Donner Desk 7am,Desk,Friday,06:50,09:00
-Friday Donner Desk 9am,Desk,Friday,09:00,12:00
-Friday Donner Desk 12pm,Desk,Friday,12:00,15:00
-Friday Donner Desk 3pm,Desk,Friday,15:00,18:00
-Friday Donner Desk 6pm,Desk,Friday,18:00,21:00
-Friday Donner Desk 9pm,Desk,Friday,21:00,23:00
-Friday Donner Round 9am,Reg,Friday,09:00,09:50
-Friday Donner Round 12pm,Reg,Friday,12:00,12:50
-Friday Donner Round 3pm,Reg,Friday,15:00,15:50
-Friday Donner Round 6pm,Reg,Friday,18:00,18:50
-Friday Donner Round 9pm,Reg,Friday,21:00,21:50
-Friday Donner Round 12am,Reg,Friday,23:00,23:50
-Friday Donner Sign-In1,Reg,Friday,21:00,23:30
-Friday Donner Sign-In2,Reg,Friday,21:00,23:30
-Friday Donner On-Duty,On-Duty,Friday,00:01,24:00
 Friday Mudge Desk 7am,Desk,Friday,06:50,09:00
 Friday Mudge Desk 9am,Desk,Friday,09:00,12:00
 Friday Mudge Desk 12pm,Desk,Friday,12:00,15:00
@@ -307,23 +292,23 @@ Friday E-Tower Round 12am,Reg,Friday,23:00,23:50
 Friday E-Tower Sign-In1,Reg,Friday,21:00,23:30
 Friday E-Tower Sign-In2,Reg,Friday,21:00,23:30
 Friday E-Tower On-Duty,On-Duty,Friday,00:01,24:00
+Friday Donner Desk 7am,Desk,Friday,06:50,09:00
+Friday Donner Desk 9am,Desk,Friday,09:00,12:00
+Friday Donner Desk 12pm,Desk,Friday,12:00,15:00
+Friday Donner Desk 3pm,Desk,Friday,15:00,18:00
+Friday Donner Desk 6pm,Desk,Friday,18:00,21:00
+Friday Donner Desk 9pm,Desk,Friday,21:00,23:00
+Friday Donner Round 9am,Reg,Friday,09:00,09:50
+Friday Donner Round 12pm,Reg,Friday,12:00,12:50
+Friday Donner Round 3pm,Reg,Friday,15:00,15:50
+Friday Donner Round 6pm,Reg,Friday,18:00,18:50
+Friday Donner Round 9pm,Reg,Friday,21:00,21:50
+Friday Donner Round 12am,Reg,Friday,23:00,23:50
+Friday Donner Sign-In1,Reg,Friday,21:00,23:30
+Friday Donner Sign-In2,Reg,Friday,21:00,23:30
+Friday Donner On-Duty,On-Duty,Friday,00:01,24:00
 Friday Bus Duty 1,Reg,Friday,08:15,09:30
 Friday Bus Duty 2,Reg,Friday,08:15,09:30
-Saturday Donner Desk 7am,Desk,Saturday,06:50,09:00
-Saturday Donner Desk 9am,Desk,Saturday,09:00,12:00
-Saturday Donner Desk 12pm,Desk,Saturday,12:00,15:00
-Saturday Donner Desk 3pm,Desk,Saturday,15:00,18:00
-Saturday Donner Desk 6pm,Desk,Saturday,18:00,21:00
-Saturday Donner Desk 9pm,Desk,Saturday,21:00,23:00
-Saturday Donner Round 9am,Reg,Saturday,09:00,09:50
-Saturday Donner Round 12pm,Reg,Saturday,12:00,12:50
-Saturday Donner Round 3pm,Reg,Saturday,15:00,15:50
-Saturday Donner Round 6pm,Reg,Saturday,18:00,18:50
-Saturday Donner Round 9pm,Reg,Saturday,21:00,21:50
-Saturday Donner Round 12am,Reg,Saturday,23:00,23:50
-Saturday Donner Sign-In1,Reg,Saturday,21:00,23:30
-Saturday Donner Sign-In2,Reg,Saturday,21:00,23:30
-Saturday Donner On-Duty,On-Duty,Saturday,00:01,24:00
 Saturday Mudge Desk 7am,Desk,Saturday,06:50,09:00
 Saturday Mudge Desk 9am,Desk,Saturday,09:00,12:00
 Saturday Mudge Desk 12pm,Desk,Saturday,12:00,15:00
@@ -369,23 +354,21 @@ Saturday E-Tower Round 12am,Reg,Saturday,23:00,23:50
 Saturday E-Tower Sign-In1,Reg,Saturday,21:00,23:30
 Saturday E-Tower Sign-In2,Reg,Saturday,21:00,23:30
 Saturday E-Tower On-Duty,On-Duty,Saturday,00:01,24:00
-Saturday Bus Duty 1,Reg,Saturday,08:15,09:30
-Saturday Bus Duty 2,Reg,Saturday,08:15,09:30
-Sunday Donner Desk 7am,Desk,Sunday,06:50,09:00
-Sunday Donner Desk 9am,Desk,Sunday,09:00,12:00
-Sunday Donner Desk 12pm,Desk,Sunday,12:00,15:00
-Sunday Donner Desk 3pm,Desk,Sunday,15:00,18:00
-Sunday Donner Desk 6pm,Desk,Sunday,18:00,21:00
-Sunday Donner Desk 9pm,Desk,Sunday,21:00,23:00
-Sunday Donner Round 9am,Reg,Sunday,09:00,09:50
-Sunday Donner Round 12pm,Reg,Sunday,12:00,12:50
-Sunday Donner Round 3pm,Reg,Sunday,15:00,15:50
-Sunday Donner Round 6pm,Reg,Sunday,18:00,18:50
-Sunday Donner Round 9pm,Reg,Sunday,21:00,21:50
-Sunday Donner Round 12am,Reg,Sunday,23:00,23:50
-Sunday Donner Sign-In1,Reg,Sunday,20:00,22:30
-Sunday Donner Sign-In2,Reg,Sunday,20:00,22:30
-Sunday Donner On-Duty,On-Duty,Sunday,00:01,24:00
+Saturday Donner Desk 7am,Desk,Saturday,06:50,09:00
+Saturday Donner Desk 9am,Desk,Saturday,09:00,12:00
+Saturday Donner Desk 12pm,Desk,Saturday,12:00,15:00
+Saturday Donner Desk 3pm,Desk,Saturday,15:00,18:00
+Saturday Donner Desk 6pm,Desk,Saturday,18:00,21:00
+Saturday Donner Desk 9pm,Desk,Saturday,21:00,23:00
+Saturday Donner Round 9am,Reg,Saturday,09:00,09:50
+Saturday Donner Round 12pm,Reg,Saturday,12:00,12:50
+Saturday Donner Round 3pm,Reg,Saturday,15:00,15:50
+Saturday Donner Round 6pm,Reg,Saturday,18:00,18:50
+Saturday Donner Round 9pm,Reg,Saturday,21:00,21:50
+Saturday Donner Round 12am,Reg,Saturday,23:00,23:50
+Saturday Donner Sign-In1,Reg,Saturday,21:00,23:30
+Saturday Donner Sign-In2,Reg,Saturday,21:00,23:30
+Saturday Donner On-Duty,On-Duty,Saturday,00:01,24:00
 Sunday Mudge Desk 7am,Desk,Sunday,06:50,09:00
 Sunday Mudge Desk 9am,Desk,Sunday,09:00,12:00
 Sunday Mudge Desk 12pm,Desk,Sunday,12:00,15:00
@@ -432,5 +415,18 @@ Sunday E-Tower Round 12am,Reg,Sunday,23:00,24:00
 Sunday E-Tower Sign-In1,Reg,Sunday,20:00,22:30
 Sunday E-Tower Sign-In2,Reg,Sunday,20:00,22:30
 Sunday E-Tower On-Duty,On-Duty,Sunday,00:01,24:00
-Sunday Bus Duty 1,Reg,Sunday,08:15,09:30
-Sunday Bus Duty 2,Reg,Sunday,08:15,09:30
+Sunday Donner Desk 7am,Desk,Sunday,06:50,09:00
+Sunday Donner Desk 9am,Desk,Sunday,09:00,12:00
+Sunday Donner Desk 12pm,Desk,Sunday,12:00,15:00
+Sunday Donner Desk 3pm,Desk,Sunday,15:00,18:00
+Sunday Donner Desk 6pm,Desk,Sunday,18:00,21:00
+Sunday Donner Desk 9pm,Desk,Sunday,21:00,23:00
+Sunday Donner Round 9am,Reg,Sunday,09:00,09:50
+Sunday Donner Round 12pm,Reg,Sunday,12:00,12:50
+Sunday Donner Round 3pm,Reg,Sunday,15:00,15:50
+Sunday Donner Round 6pm,Reg,Sunday,18:00,18:50
+Sunday Donner Round 9pm,Reg,Sunday,21:00,21:50
+Sunday Donner Round 12am,Reg,Sunday,23:00,23:50
+Sunday Donner Sign-In1,Reg,Sunday,20:00,22:30
+Sunday Donner Sign-In2,Reg,Sunday,20:00,22:30
+Sunday Donner On-Duty,On-Duty,Sunday,00:01,24:00
